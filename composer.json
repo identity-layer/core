@@ -1,0 +1,33 @@
+{
+    "name": "identity-layer/core",
+    "description": "Core Library for the Identity Layer project",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alvin Chevolleaux",
+            "email": "alvin@chevolleaux.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "paragonie/constant_time_encoding": "^2.3",
+        "myclabs/php-enum": "^1.7",
+        "phpseclib/phpseclib": "^2.0",
+        "beberlei/assert": "^3.2",
+        "ext-json": "^7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "IdentityLayer\\Core\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "IdentityLayer\\Tests\\Core\\": "tests/"
+        }
+    }
+}
