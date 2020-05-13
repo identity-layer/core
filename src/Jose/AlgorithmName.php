@@ -23,6 +23,7 @@ use MyCLabs\Enum\Enum;
  * @method static AlgorithmName PS256()
  * @method static AlgorithmName PS384()
  * @method static AlgorithmName PS512()
+ * @method static AlgorithmName NONE()
  */
 class AlgorithmName extends Enum
 {

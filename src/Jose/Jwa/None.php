@@ -6,37 +6,38 @@ namespace IdentityLayer\Core\Jose\Jwa;
 
 use IdentityLayer\Core\Jose\AlgorithmFamily;
 use IdentityLayer\Core\Jose\AlgorithmName;
+use IdentityLayer\Core\Jose\Exception\NoneAlgorithmIllegalOperationException;
 use IdentityLayer\Core\Jose\Jwa;
 
 class None implements Jwa
 {
     public function name(): AlgorithmName
     {
-        // TODO: Implement name() method.
+        return AlgorithmName::NONE();
     }
 
     public function type(): AlgorithmFamily
     {
-        // TODO: Implement type() method.
+        AlgorithmFamily::NONE();
     }
 
     public function sign($message): string
     {
-        // TODO: Implement sign() method.
+        return '';
     }
 
     public function verify(string $message, string $signature): bool
     {
-        // TODO: Implement verify() method.
+        return strlen($signature) === 0;
     }
 
     public function toPublicJwkFormat(): array
     {
-        // TODO: Implement toPublicJwkFormat() method.
+        throw new NoneAlgorithmIllegalOperationException('Cannot output none JWA to Jwk format.');
     }
 
     public function kid(): string
     {
-        // TODO: Implement kid() method.
+        throw new NoneAlgorithmIllegalOperationException('None algorithm has no ID.');
     }
 }
