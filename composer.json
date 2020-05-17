@@ -10,15 +10,16 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {ll
+    "require": {
         "php": "^7.4",
+        "ext-intl": "*",
         "ext-mbstring": "*",
         "paragonie/constant_time_encoding": "^2.3",
         "myclabs/php-enum": "^1.7",
         "phpseclib/phpseclib": "^2.0",
         "beberlei/assert": "^3.2",
         "ext-json": "^7.4",
-        "alvinchevolleaux/collection": "1.0.0-rc",
+        "alvinchevolleaux/collection": "dev-master",
         "psr/http-message": "^1.0"
     },
     "require-dev": {

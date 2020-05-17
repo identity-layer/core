@@ -7,10 +7,12 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     zlib1g-dev \
     libgmp3-dev \
-    libxml2-dev
+    libxml2-dev \
+    git
 
 RUN pecl install xdebug
 RUN docker-php-ext-install zip
+RUN docker-php-ext-install intl
 RUN docker-php-ext-install gmp
 RUN docker-php-ext-enable xdebug
 
