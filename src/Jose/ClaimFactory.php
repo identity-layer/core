@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace IdentityLayer\Core\Jose;
+namespace IdentityLayer\Jose;
 
 use AlvinChevolleaux\Collection\Collection;
-use IdentityLayer\Core\Jose\Claim\BooleanClaim;
-use IdentityLayer\Core\Jose\Claim\EmailClaim;
-use IdentityLayer\Core\Jose\Claim\LocaleClaim;
-use IdentityLayer\Core\Jose\Claim\PhoneNumberClaim;
-use IdentityLayer\Core\Jose\Claim\TimestampClaim;
-use IdentityLayer\Core\Jose\Claim\UrlClaim;
-use IdentityLayer\Core\Jose\Claim\ZoneInfoClaim;
+use IdentityLayer\Jose\Claim\BooleanClaim;
+use IdentityLayer\Jose\Claim\EmailClaim;
+use IdentityLayer\Jose\Claim\LocaleClaim;
+use IdentityLayer\Jose\Claim\PhoneNumberClaim;
+use IdentityLayer\Jose\Claim\TimestampClaim;
+use IdentityLayer\Jose\Claim\UrlClaim;
+use IdentityLayer\Jose\Claim\ZoneInfoClaim;
 
 class ClaimFactory
 {

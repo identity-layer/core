@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace IdentityLayer\Tests\Core\Jose\Jwt;
+namespace IdentityLayer\Tests\Jose\Jwt;
 
-use IdentityLayer\Core\Jose\AlgorithmName;
-use IdentityLayer\Core\Jose\Jwa\RS;
-use IdentityLayer\Core\Jose\Jwt\Jws;
+use IdentityLayer\Jose\AlgorithmName;
+use IdentityLayer\Jose\Jwa\RS;
+use IdentityLayer\Jose\Jwt\Jws;
 use PHPUnit\Framework\TestCase;
 
 class JwsTest extends TestCase

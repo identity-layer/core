@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace IdentityLayer\Tests\Core\Jose\Jwa;
+namespace IdentityLayer\Tests\Jose\Jwa;
 
-use IdentityLayer\Core\Jose\AlgorithmName;
-use IdentityLayer\Core\Jose\Jwa\RS;
+use IdentityLayer\Jose\AlgorithmName;
+use IdentityLayer\Jose\Jwa\RS;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 use PHPUnit\Framework\TestCase;
 

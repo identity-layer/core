@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace IdentityLayer\Core\Jose\Claim;
+namespace IdentityLayer\Jose\Claim;
 
 use DateTimeImmutable;
 use Exception;
-use IdentityLayer\Core\Jose\Claim;
+use IdentityLayer\Jose\Claim;
 use InvalidArgumentException;
 
 class TimestampClaim implements Claim

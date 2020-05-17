@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace IdentityLayer\Core\Jose\Claim;
+namespace IdentityLayer\Jose\Claim;
 
-use IdentityLayer\Core\Jose\Claim;
+use IdentityLayer\Jose\Claim;
 use InvalidArgumentException;
 
 class LocaleClaim implements Claim
@@ -15,7 +15,9 @@ class LocaleClaim implements Claim
     private function __construct(string $key, string $locale)
     {
         if (!preg_match('/^[a-z]{2}[_-][A-Z]{2}$/', $locale)) {
-            throw new InvalidArgumentException('%s is not a valid locale');
+            throw new InvalidArgumentException(
+                sprintf('%s is not a valid locale', $locale)
+            );
         }
 
         $this->key = $key;

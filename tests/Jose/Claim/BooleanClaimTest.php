@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace IdentityLayer\Tests\Core\Jose\Claim;
+namespace IdentityLayer\Tests\Jose\Claim;
 
-use IdentityLayer\Core\Jose\Claim\BooleanClaim;
+use IdentityLayer\Jose\Claim\BooleanClaim;
 use PHPUnit\Framework\TestCase;
 use TypeError;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IdentityLayer\Core\Jose;
+namespace IdentityLayer\Jose;
 
 use AlvinChevolleaux\Collection\Exception\InvalidTypeException;
 use AlvinChevolleaux\Collection\ImmutableSet;

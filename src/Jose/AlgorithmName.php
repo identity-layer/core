@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace IdentityLayer\Core\Jose;
+namespace IdentityLayer\Jose;
 
-use IdentityLayer\Core\Jose\Exception\NoneHashingAlgorithmException;
-use IdentityLayer\Core\Jose\Exception\UnrecognisedJwaException;
+use IdentityLayer\Jose\Exception\NoneHashingAlgorithmException;
+use IdentityLayer\Jose\Exception\UnrecognisedJwaException;
 use MyCLabs\Enum\Enum;
 
 /**

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace IdentityLayer\Core\Jose\Claim;
+namespace IdentityLayer\Jose\Claim;
 
-use IdentityLayer\Core\Jose\Claim;
+use IdentityLayer\Jose\Claim;
 use InvalidArgumentException;
 
 class GenericClaim implements Claim

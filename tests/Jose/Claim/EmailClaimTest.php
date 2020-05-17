@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace IdentityLayer\Tests\Core\Jose\Claim;
+namespace IdentityLayer\Tests\Jose\Claim;
 
-use IdentityLayer\Core\Jose\Claim\EmailClaim;
+use IdentityLayer\Jose\Claim\EmailClaim;
 use PHPUnit\Framework\TestCase;
 
 class EmailClaimTest extends TestCase

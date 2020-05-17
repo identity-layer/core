@@ -2,24 +2,26 @@
 
 declare(strict_types=1);
 
-namespace IdentityLayer\Core\Jose;
+namespace IdentityLayer\Jose;
 
-class JwaCollection implements JwaCollectionInterface
+use AlvinChevolleaux\Collection\Exception\InvalidTypeException;
+use AlvinChevolleaux\Collection\ImmutableSet;
+
+class JwaCollection extends ImmutableSet
 {
-    private $items;
-
-    public function items(): array
+    public static function T(): string
     {
-        // TODO: Implement items() method.
+        return Jwa::class;
     }
 
-    public function withItem(Jwa $jwa): JwaCollectionInterface
+    public static function itemsEqual(object $item1, object $item2): bool
     {
-        // TODO: Implement withItem() method.
-    }
+        if (!$item1 instanceof Jwa || !$item2 instanceof Jwa) {
+            throw new InvalidTypeException(
+                sprintf('Both comparators must be of type %s', Jwa::class)
+            );
+        }
 
-    public static function fromArray(array $items): JwaCollectionInterface
-    {
-        // TODO: Implement fromArray() method.
+        return $item1->kid() === $item2->kid();
     }
 }

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace IdentityLayer\Core\Jose\Jwt;
+namespace IdentityLayer\Jose\Jwt;
 
-use IdentityLayer\Core\Jose\Exception\JwaException;
-use IdentityLayer\Core\Jose\Jwa;
-use IdentityLayer\Core\Jose\Jwt;
+use IdentityLayer\Jose\Exception\JwaException;
+use IdentityLayer\Jose\Jwa;
+use IdentityLayer\Jose\Jwt;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 
 class Jws implements Jwt

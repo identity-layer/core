@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace IdentityLayer\Core\Jose\Jwa;
+namespace IdentityLayer\Jose\Jwa;
 
-use IdentityLayer\Core\Jose\AlgorithmFamily;
-use IdentityLayer\Core\Jose\AlgorithmName;
-use IdentityLayer\Core\Jose\Jwa;
+use IdentityLayer\Jose\AlgorithmFamily;
+use IdentityLayer\Jose\AlgorithmName;
+use IdentityLayer\Jose\Jwa;
 use InvalidArgumentException;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 use phpseclib\Crypt\RSA;

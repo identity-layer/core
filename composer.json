@@ -1,5 +1,5 @@
 {
-    "name": "identity-layer/core",
+    "name": "identity-layer/jose",
     "description": "Core Library for the Identity Layer project",
     "type": "library",
     "license": "MIT",
@@ -27,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "IdentityLayer\\Core\\": "src/"
+            "IdentityLayer\\Jose\\": "src/Jose"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "IdentityLayer\\Tests\\Core\\": "tests/"
+            "IdentityLayer\\Tests\\Jose\\": "tests/Jose"
         }
     }
 }

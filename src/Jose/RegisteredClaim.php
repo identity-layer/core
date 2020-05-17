@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IdentityLayer\Core\Jose;
+namespace IdentityLayer\Jose;
 
 class RegisteredClaim implements Claim
 {
@@ -13,6 +13,12 @@ class RegisteredClaim implements Claim
     {
         $this->type = $type;
         $this->claim = $claim;
+    }
+
+    public static function fromKeyValue(string $key, $value): Claim
+    {
+        $registeredClaimType = new RegisteredClaimEnum($key);
+        return new static($registeredClaimType, $value);
     }
 
     public function type(): RegisteredClaimEnum
