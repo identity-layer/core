@@ -4,18 +4,24 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose\Jwt;
 
+use IdentityLayer\Jose\ClaimCollection;
 use IdentityLayer\Jose\Exception\JwaException;
 use IdentityLayer\Jose\Jwa;
+use IdentityLayer\Jose\Jwk\SigningKey;
 use IdentityLayer\Jose\Jwt;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 
 class Jws implements Jwt
 {
-    public static function toCompactSerialisedFormat(Jwa $jwa, array $claims, array $header = null): string
-    {
+    public static function toCompactSerialisedFormat(
+        SigningKey $key,
+        Jwa $jwa,
+        ClaimCollection $claims,
+        array $header = null
+    ): string {
         $header = $header ?? [
             'alg' => $jwa->name()->getValue(),
-            'kid' => $jwa->kid(),
+            'kid' => $key->kid(),
             'typ' => 'JWT',
         ];
 
@@ -38,7 +44,7 @@ class Jws implements Jwt
         );
 
         $signature = Base64UrlSafe::encodeUnpadded(
-            $jwa->sign("{$headerEncoded}.{$payloadEncoded}")
+            $jwa->sign($key,"{$headerEncoded}.{$payloadEncoded}")
         );
 
         return "{$headerEncoded}.{$payloadEncoded}.{$signature}";

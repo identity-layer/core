@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace IdentityLayer\Tests\Jose\Jwt;
 
 use IdentityLayer\Jose\AlgorithmName;
+use IdentityLayer\Jose\ClaimFactory;
 use IdentityLayer\Jose\Jwa\RS;
+use IdentityLayer\Jose\Jwk\Rsa\PrivateKey;
 use IdentityLayer\Jose\Jwt\Jws;
 use PHPUnit\Framework\TestCase;
 
@@ -46,22 +48,28 @@ UWyqtp06tHJpOCb6E7Ut4SDmEvMobTaQSygu61nXOLMHpJEBwSejYJL8DEksUfqz
 
     public function testToCompactSerialisedFormat()
     {
-        $rs256 = RS::fromPrivateKeyPemEncoded($this->privateKeyPem, AlgorithmName::RS256());
+        $privateKey = PrivateKey::fromPrivateKeyPemEncoded($this->privateKeyPem);
+        $rs256 = new RS(AlgorithmName::RS256());
 
         $header = [
             'alg' => AlgorithmName::RS256()->getValue(),
             'typ' => 'JWT',
         ];
 
-        $claims = [
+        $claims = ClaimFactory::createClaims([
             'sub' => '1234567890',
             'name' => 'John Doe',
             'admin' => true,
             'iat' => 1516239022,
-        ];
+        ]);
 
         $expectedToken = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.TwBPtu-ib2TtocrNSVEwRAQG7ooAkCTILmklEY5TyNk94sSh2ORYCie_pFJABEJ1N3Omk7NezY5i609p7fXySmtrOZBorxakfYMlPIujo38k2MiQSyHDWM4DL4faum9DVKsLMl7Ok0BS2MuZ0YsZGLzCzExU_BsNLkPNmSTf6wSO-Fv3xvIxz4Kw7APyFcjVK3mEHb2TA-1u36W43DU4ylCc70MK1MrdrqIUYcOFJLvNYye9CNIbCmogj2ls5DLGSLlX2HPLQrjEs1gUYK81Eqr1LRttIgEC0UpLbdB5za4llocNcCxKetgsEHY4fEiZ9I5P3T7N1IRzChhxJX5rPA';
 
-        $this->assertEquals($expectedToken, Jws::toCompactSerialisedFormat($rs256, $claims, $header));
+        $this->assertEquals($expectedToken, Jws::toCompactSerialisedFormat(
+            $privateKey,
+            $rs256,
+            $claims,
+            $header
+        ));
     }
 }

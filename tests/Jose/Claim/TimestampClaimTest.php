@@ -4,7 +4,17 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Tests\Jose\Claim;
 
-class TimestampClaimTest
-{
+use PHPUnit\Framework\TestCase;
 
+class TimestampClaimTest extends TestCase
+{
+    public function testValidTimestamp()
+    {
+
+    }
+
+    public function testInvalidTimestamp()
+    {
+
+    }
 }

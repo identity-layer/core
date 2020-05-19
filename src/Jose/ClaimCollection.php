@@ -6,8 +6,9 @@ namespace IdentityLayer\Jose;
 
 use AlvinChevolleaux\Collection\Exception\InvalidTypeException;
 use AlvinChevolleaux\Collection\ImmutableSet;
+use JsonSerializable;
 
-class ClaimCollection extends ImmutableSet
+class ClaimCollection extends ImmutableSet implements JsonSerializable
 {
     public static function T(): string
     {
@@ -18,10 +19,21 @@ class ClaimCollection extends ImmutableSet
     {
         if (!$item1 instanceof Claim || !$item2 instanceof Claim) {
             throw new InvalidTypeException(
-                sprintf('Both comparators must be of type %s', User::class)
+                sprintf('Both comparators must be of type %s', Claim::class)
             );
         }
 
         return ($item1->getKey() === $item2->getKey() && $item1->getValue() === $item2->getValue());
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->reduce(function ($carry, Claim $claim) {
+            if ($carry === null) {
+                $carry = [];
+            }
+
+            return array_merge($carry, $claim->jsonSerialize());
+        });
     }
 }

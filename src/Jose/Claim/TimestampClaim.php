@@ -17,7 +17,7 @@ class TimestampClaim implements Claim
     private function __construct(string $key, int $timestamp)
     {
         try {
-            $dateTime = new DateTimeImmutable($timestamp);
+            $dateTime = DateTimeImmutable::createFromFormat('U', (string) $timestamp);
         } catch (Exception $e) {
             throw new InvalidArgumentException(
                 sprintf('Invalid timestamp %d', $timestamp)
@@ -45,7 +45,7 @@ class TimestampClaim implements Claim
     public function jsonSerialize()
     {
         return [
-            $this->key => $this->value
+            $this->key => $this->value->getTimestamp()
         ];
     }
 }

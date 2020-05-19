@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose;
 
+use IdentityLayer\Jose\Claim\GenericClaim;
+use InvalidArgumentException;
+
 class RegisteredClaim implements Claim
 {
     private RegisteredClaimEnum $type;
@@ -17,6 +20,12 @@ class RegisteredClaim implements Claim
 
     public static function fromKeyValue(string $key, $value): Claim
     {
+        if (!$value instanceof Claim) {
+            throw new InvalidArgumentException(
+                sprintf('$value must be of type %s', Claim::class)
+            );
+        }
+
         $registeredClaimType = new RegisteredClaimEnum($key);
         return new static($registeredClaimType, $value);
     }
@@ -28,7 +37,7 @@ class RegisteredClaim implements Claim
 
     public function getKey(): string
     {
-        return $this->claim->getKey();
+        return $this->type->getValue();
     }
 
     public function getValue()

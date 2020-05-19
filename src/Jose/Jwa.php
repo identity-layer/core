@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose;
 
+use IdentityLayer\Jose\Jwk\SigningKey;
+use IdentityLayer\Jose\Jwk\VerificationKey;
+
 interface Jwa
 {
     public function name(): AlgorithmName;
 
-    public function type(): AlgorithmFamily;
+    public function sign(SigningKey $key, $message): string;
 
-    public function sign($message): string;
-
-    public function verify(string $message, string $signature): bool;
-
-    public function toPublicJwkFormat(): array;
-
-    public function kid(): string;
+    public function verify(VerificationKey $key, string $message, string $signature): bool;
 }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose;
 
-use AlvinChevolleaux\Collection\Collection;
 use IdentityLayer\Jose\Claim\BooleanClaim;
 use IdentityLayer\Jose\Claim\EmailClaim;
+use IdentityLayer\Jose\Claim\GenericClaim;
 use IdentityLayer\Jose\Claim\LocaleClaim;
 use IdentityLayer\Jose\Claim\PhoneNumberClaim;
 use IdentityLayer\Jose\Claim\TimestampClaim;
@@ -15,7 +15,7 @@ use IdentityLayer\Jose\Claim\ZoneInfoClaim;
 
 class ClaimFactory
 {
-    public static function createClaims(array $claims): Collection
+    public static function createClaims(array $claims): ClaimCollection
     {
         $parsedClaims = [];
 
@@ -61,7 +61,7 @@ class ClaimFactory
             case RegisteredClaimEnum::ZONE_INFO:
                 return ZoneInfoClaim::fromKeyValue($key, $value);
             default:
-                GenericClaim::fromKeyValue($key, $value);
+                return GenericClaim::fromKeyValue($key, $value);
         }
     }
 }

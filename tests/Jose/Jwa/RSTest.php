@@ -6,62 +6,122 @@ namespace IdentityLayer\Tests\Jose\Jwa;
 
 use IdentityLayer\Jose\AlgorithmName;
 use IdentityLayer\Jose\Jwa\RS;
+use IdentityLayer\Jose\Jwk\Rsa\PrivateKey;
+use IdentityLayer\Jose\Jwk\Rsa\PublicKey;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 use PHPUnit\Framework\TestCase;
 
 class RSTest extends TestCase
 {
     private string $privateKeyPem;
+    private string $publicKeyPem;
 
     public function setUp(): void
     {
         $this->privateKeyPem = '-----BEGIN RSA PRIVATE KEY-----
-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
+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
 -----END RSA PRIVATE KEY-----';
+
+        $this->publicKeyPem = '-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnzyis1ZjfNB0bBgKFMSv
+vkTtwlvBsaJq7S5wA+kzeVOVpVWwkWdVha4s38XM/pa/yr47av7+z3VTmvDRyAHc
+aT92whREFpLv9cj5lTeJSibyr/Mrm/YtjCZVWgaOYIhwrXwKLqPr/11inWsAkfIy
+tvHWTxZYEcXLgAXFuUuaS3uF9gEiNQwzGTU1v0FqkqTBr4B8nW3HCN47XUu0t8Y0
+e+lf4s4OxQawWD79J9/5d3Ry0vbV3Am1FtGJiJvOwRsIfVChDpYStTcHTCMqtvWb
+V6L11BWkpzGXSW4Hv43qa+GSYOD2QU68Mb59oSk2OB+BtOLpJofmbGEGgvmwyCI9
+MwIDAQAB
+-----END PUBLIC KEY-----';
     }
 
     public function testSigning(): void
     {
-        $rs256 = RS::fromPrivateKeyPemEncoded($this->privateKeyPem, AlgorithmName::RS256());
+        $privateKey = PrivateKey::fromPrivateKeyPemEncoded($this->privateKeyPem);
+
+        $rs256 = new RS(AlgorithmName::RS256());
         $message256 = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0';
-        $rs256Signature = Base64UrlSafe::decode('TwBPtu-ib2TtocrNSVEwRAQG7ooAkCTILmklEY5TyNk94sSh2ORYCie_pFJABEJ1N3Omk7NezY5i609p7fXySmtrOZBorxakfYMlPIujo38k2MiQSyHDWM4DL4faum9DVKsLMl7Ok0BS2MuZ0YsZGLzCzExU_BsNLkPNmSTf6wSO-Fv3xvIxz4Kw7APyFcjVK3mEHb2TA-1u36W43DU4ylCc70MK1MrdrqIUYcOFJLvNYye9CNIbCmogj2ls5DLGSLlX2HPLQrjEs1gUYK81Eqr1LRttIgEC0UpLbdB5za4llocNcCxKetgsEHY4fEiZ9I5P3T7N1IRzChhxJX5rPA');
+        $rs256Signature = Base64UrlSafe::decode('POstGetfAytaZS82wHcjoTyoqhMyxXiWdR7Nn7A29DNSl0EiXLdwJ6xC6AfgZWF1bOsS_TuYI3OG85AmiExREkrS6tDfTQ2B3WXlrr-wp5AokiRbz3_oB4OxG-W9KcEEbDRcZc0nH3L7LzYptiy1PtAylQGxHTWZXtGz4ht0bAecBgmpdgXMguEIcoqPJ1n3pIWk_dUZegpqx0Lka21H6XxUTxiy8OcaarA8zdnPUnV6AmNP3ecFawIFYdvJB_cm-GvpCSbr8G8y_Mllj8f4x9nBH8pQux89_6gUY618iYv7tuPWBFfEbLxtF2pZS6YC1aSfLQxeNe8djT9YjpvRZA');
 
-        $this->assertEquals($rs256Signature, $rs256->sign($message256));
+        $this->assertEquals($rs256Signature, $rs256->sign($privateKey, $message256));
 
-        $rs384 = RS::fromPrivateKeyPemEncoded($this->privateKeyPem, AlgorithmName::RS384());
+        $rs384 = new RS(AlgorithmName::RS384());
         $message384 = 'eyJhbGciOiJSUzM4NCIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0';
-        $rs384Signature = Base64UrlSafe::decode('dqgtcIKyk7_UuYd72C-OX2M2YfsWCtUaktZ8jJNS-U4sSMjwM-JXme78MbG3JCheYr49Y86AVi83jK-yr7sQd4JC_lovMi31HJ_o0EZMNFT4mO4Ho-8lKQfnVZLpprO-roT7_B1UAIS_ZrdFfSCf2atxs62iz_c3qLjnjk_3YnzxHpHebS2M_boOLGBWeeQDZuuvOIL1z2NUdiTUg4Bh6_G5ZvZOjI3UL57nNt4O1MUJkI_pb3fZAPzV9Z9YQbi1W9cQP9Z7j0X5RcYUWQJAagN7Qengc0CJNkLIatW7sbkDuLoHoEKhThn91NQbGpfPa-cp46Ab7avImd8g0odMAQ');
+        $rs384Signature = Base64UrlSafe::decode('D4kXa3UspFjRA9ys5tsD4YDyxxam3l_XnOb3hMEdPDTfSLRHPv4HPwxvin-pIkEmfJshXPSK7O4zqSXWAXFO52X-upJjFc_gpGDswctNWpOJeXe1xBgJ--VuGDzUQCqkr9UBpN-Q7TE5u9cgIVisekSFSH5Ax6aXQC9vCO5LooNFx_WnbTLNZz7FUia9vyJ544kLB7UcacL-_idgRNIWPdd_d1vvnNGkknIMarRjCsjAEf6p5JGhYZ8_C18g-9DsfokfUfSpKgBR23R8v8ZAAmPPPiJ6MZXkefqE7p3jRbA--58z5TlHmH9nTB1DYE2872RYvyzG3LoQ-2s93VaVuw');
 
-        $this->assertEquals($rs384Signature, $rs384->sign($message384));
+        $this->assertEquals($rs384Signature, $rs384->sign($privateKey, $message384));
 
-        $rs512 = RS::fromPrivateKeyPemEncoded($this->privateKeyPem, AlgorithmName::RS512());
+        $rs512 = new RS(AlgorithmName::RS512());
         $message512 = 'eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0';
-        $rs512Signature = Base64UrlSafe::decode('nY0Zh7PXLjvi3G0wq-hP7vYGCG5RKXRfJqYyeubWbkdBdcp6LkHYD7BlrOa9HrCVyVgB4bv2AHb8rjDZYC-YjJU9DceJFAjzpcsTeDWcKqgvB9LDRKGqizRv0phUFVCBlyaqWpcBkWBM7iyVvox3iYgpree1ky9wcM3wAQQYLt_9Ud9Rr45Xyd9pA5Mp_P6UIHAzx9pPT93uB6Gx3Ticc1PQaHBbVPJkMHxPmmlJMAvE1RC8CG5Rvqj7K4CW7GTKopfub_lnk1uG3w1_YYy0LSzheC-RIgt7pBE4mAAd3H_P3TVxrcaldkSxc6VrYOKE9KdtlZBrWLKCeIhkCui3sA');
+        $rs512Signature = Base64UrlSafe::decode('JlX3gXGyClTBFciHhknWrjo7SKqyJ5iBO0n-3S2_I7cIgfaZAeRDJ3SQEbaPxVC7X8aqGCOM-pQOjZPKUJN8DMFrlHTOdqMs0TwQ2PRBmVAxXTSOZOoEhD4ZNCHohYoyfoDhJDP4Qye_FCqu6POJzg0Jcun4d3KW04QTiGxv2PkYqmB7nHxYuJdnqE3704hIS56pc_8q6AW0WIT0W-nIvwzaSbtBU9RgaC7ZpBD2LiNE265UBIFraMDF8IAFw9itZSUCTKg1Q-q27NwwBZNGYStMdIBDor2Bsq5ge51EkWajzZ7ALisVp-bskzUsqUf77ejqX_CBAqkNdH1Zebn93A');
 
-        $this->assertEquals($rs512Signature, $rs512->sign($message512));
+        $this->assertEquals($rs512Signature, $rs512->sign($privateKey, $message512));
+    }
+
+    public function testVerify(): void
+    {
+        $privateKey = PrivateKey::fromPrivateKeyPemEncoded($this->privateKeyPem);
+        $publicKey = PublicKey::fromPublicKeyPemEncoded($this->publicKeyPem);
+
+        $rs256 = new RS(AlgorithmName::RS256());
+        $message256 = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0';
+        $rs256Signature = Base64UrlSafe::decode('POstGetfAytaZS82wHcjoTyoqhMyxXiWdR7Nn7A29DNSl0EiXLdwJ6xC6AfgZWF1bOsS_TuYI3OG85AmiExREkrS6tDfTQ2B3WXlrr-wp5AokiRbz3_oB4OxG-W9KcEEbDRcZc0nH3L7LzYptiy1PtAylQGxHTWZXtGz4ht0bAecBgmpdgXMguEIcoqPJ1n3pIWk_dUZegpqx0Lka21H6XxUTxiy8OcaarA8zdnPUnV6AmNP3ecFawIFYdvJB_cm-GvpCSbr8G8y_Mllj8f4x9nBH8pQux89_6gUY618iYv7tuPWBFfEbLxtF2pZS6YC1aSfLQxeNe8djT9YjpvRZA');
+
+        $this->assertTrue(
+            $rs256->verify($privateKey, $message256, $rs256Signature),
+            'Failed to verify valid RS256 signature with private key'
+        );
+        $this->assertTrue(
+            $rs256->verify($publicKey, $message256, $rs256Signature),
+            'Failed to verify valid RS256 signature with public key'
+        );
+
+        $rs384 = new RS(AlgorithmName::RS384());
+        $message384 = 'eyJhbGciOiJSUzM4NCIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0';
+        $rs384Signature = Base64UrlSafe::decode('D4kXa3UspFjRA9ys5tsD4YDyxxam3l_XnOb3hMEdPDTfSLRHPv4HPwxvin-pIkEmfJshXPSK7O4zqSXWAXFO52X-upJjFc_gpGDswctNWpOJeXe1xBgJ--VuGDzUQCqkr9UBpN-Q7TE5u9cgIVisekSFSH5Ax6aXQC9vCO5LooNFx_WnbTLNZz7FUia9vyJ544kLB7UcacL-_idgRNIWPdd_d1vvnNGkknIMarRjCsjAEf6p5JGhYZ8_C18g-9DsfokfUfSpKgBR23R8v8ZAAmPPPiJ6MZXkefqE7p3jRbA--58z5TlHmH9nTB1DYE2872RYvyzG3LoQ-2s93VaVuw');
+
+        $this->assertTrue(
+            $rs384->verify($privateKey, $message384, $rs384Signature),
+            'Failed to verify valid RS384 signature with private key'
+        );
+        $this->assertTrue(
+            $rs384->verify($publicKey, $message384, $rs384Signature),
+            'Failed to verify valid RS384 signature with public key'
+        );
+
+        $rs512 = new RS(AlgorithmName::RS512());
+        $message512 = 'eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0';
+        $rs512Signature = Base64UrlSafe::decode('JlX3gXGyClTBFciHhknWrjo7SKqyJ5iBO0n-3S2_I7cIgfaZAeRDJ3SQEbaPxVC7X8aqGCOM-pQOjZPKUJN8DMFrlHTOdqMs0TwQ2PRBmVAxXTSOZOoEhD4ZNCHohYoyfoDhJDP4Qye_FCqu6POJzg0Jcun4d3KW04QTiGxv2PkYqmB7nHxYuJdnqE3704hIS56pc_8q6AW0WIT0W-nIvwzaSbtBU9RgaC7ZpBD2LiNE265UBIFraMDF8IAFw9itZSUCTKg1Q-q27NwwBZNGYStMdIBDor2Bsq5ge51EkWajzZ7ALisVp-bskzUsqUf77ejqX_CBAqkNdH1Zebn93A');
+
+        $this->assertTrue(
+            $rs512->verify($privateKey, $message512, $rs512Signature),
+            'Failed to verify valid RS512 signature with private key'
+        );
+        $this->assertTrue(
+            $rs512->verify($publicKey, $message512, $rs512Signature),
+            'Failed to verify valid RS512 signature with public key'
+        );
     }
 }
