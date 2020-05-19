@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace IdentityLayer\Jose\Claim;
 
 use IdentityLayer\Jose\Claim;
-use InvalidArgumentException;
+use IdentityLayer\Jose\Exception\InvalidArgumentException;
 
 class PhoneNumberClaim implements Claim
 {
@@ -14,7 +14,7 @@ class PhoneNumberClaim implements Claim
 
     private function __construct(string $key, string $phoneNumber)
     {
-        if (!preg_match('/^\+[1-9]\d{1,14}$/', $phoneNumber)) {
+        if (!preg_match('/^\+[1-9]\d{1,14}$/', str_replace(' ', '', $phoneNumber))) {
             throw new InvalidArgumentException(
                 sprintf(
                     'Invalid phone number: %s. Expecting E.164 format phone number',

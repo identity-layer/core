@@ -6,7 +6,7 @@ namespace IdentityLayer\Tests\Jose\Claim;
 
 use PHPUnit\Framework\TestCase;
 
-class UrlClaimTest extends TestCase
+class UrlClaimTest
 {
     public function testValidUrl()
     {

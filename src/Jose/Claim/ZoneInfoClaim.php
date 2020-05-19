@@ -7,7 +7,7 @@ namespace IdentityLayer\Jose\Claim;
 use DateTimeZone;
 use Exception;
 use IdentityLayer\Jose\Claim;
-use InvalidArgumentException;
+use IdentityLayer\Jose\Exception\InvalidArgumentException;
 
 class ZoneInfoClaim implements Claim
 {

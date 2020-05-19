@@ -6,7 +6,7 @@ namespace IdentityLayer\Tests\Jose\Claim;
 
 use PHPUnit\Framework\TestCase;
 
-class ZoneInfoClaimTest extends TestCase
+class ZoneInfoClaimTest
 {
     public function testValidZoneInfo()
     {

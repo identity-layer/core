@@ -6,7 +6,7 @@ namespace IdentityLayer\Tests\Jose\Claim;
 
 use PHPUnit\Framework\TestCase;
 
-class TimestampClaimTest extends TestCase
+class TimestampClaimTest
 {
     public function testValidTimestamp()
     {

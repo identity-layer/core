@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace IdentityLayer\Jose\Claim;
 
 use IdentityLayer\Jose\Claim;
-use InvalidArgumentException;
+use IdentityLayer\Jose\Exception\InvalidArgumentException;
 
 class UrlClaim implements Claim
 {
@@ -14,9 +14,9 @@ class UrlClaim implements Claim
 
     private function __construct(string $key, string $url)
     {
-        if (parse_url($uri) === false) {
+        if (parse_url($url) === false) {
             throw new InvalidArgumentException(
-                sprintf('%s is not a valid Url', $uri)
+                sprintf('%s is not a valid Url', $url)
             );
         }
 

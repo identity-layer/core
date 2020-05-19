@@ -7,7 +7,7 @@ namespace IdentityLayer\Jose\Claim;
 use DateTimeImmutable;
 use Exception;
 use IdentityLayer\Jose\Claim;
-use InvalidArgumentException;
+use IdentityLayer\Jose\Exception\InvalidArgumentException;
 
 class TimestampClaim implements Claim
 {
