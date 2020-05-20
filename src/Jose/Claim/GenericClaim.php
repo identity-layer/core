@@ -26,6 +26,11 @@ class GenericClaim implements Claim
         $this->value = $value;
     }
 
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return Claim
+     */
     public static function fromKeyValue(string $key, $value): Claim
     {
         return new static($key, $value);

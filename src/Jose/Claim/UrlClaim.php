@@ -14,7 +14,7 @@ class UrlClaim implements Claim
 
     private function __construct(string $key, string $url)
     {
-        if (parse_url($url) === false) {
+        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
             throw new InvalidArgumentException(
                 sprintf('%s is not a valid Url', $url)
             );
@@ -24,6 +24,11 @@ class UrlClaim implements Claim
         $this->value = $url;
     }
 
+    /**
+     * @param string $key
+     * @param string $value
+     * @return Claim
+     */
     public static function fromKeyValue(string $key, $value): Claim
     {
         return new static($key, $value);

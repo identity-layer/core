@@ -27,6 +27,11 @@ class TimestampClaim implements Claim
         $this->value = $dateTime;
     }
 
+    /**
+     * @param string $key
+     * @param int $value
+     * @return Claim
+     */
     public static function fromKeyValue(string $key, $value): Claim
     {
         return new static($key, $value);

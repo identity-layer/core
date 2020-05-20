@@ -17,6 +17,11 @@ class BooleanClaim implements Claim
         $this->value = $value;
     }
 
+    /**
+     * @param string $key
+     * @param bool $value
+     * @return Claim
+     */
     public static function fromKeyValue(string $key, $value): Claim
     {
         return new static($key, $value);

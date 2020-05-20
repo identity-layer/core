@@ -24,6 +24,11 @@ class LocaleClaim implements Claim
         $this->value = str_replace('_', '-', $locale);
     }
 
+    /**
+     * @param string $key
+     * @param string $value
+     * @return Claim
+     */
     public static function fromKeyValue(string $key, $value): Claim
     {
         return new static($key, $value);

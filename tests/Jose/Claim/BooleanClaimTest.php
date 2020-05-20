@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace IdentityLayer\Tests\Jose\Claim;
 
 use IdentityLayer\Jose\Claim\BooleanClaim;
+use IdentityLayer\Jose\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use TypeError;
 

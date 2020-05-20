@@ -24,6 +24,11 @@ class EmailClaim implements Claim
         $this->value = $email;
     }
 
+    /**
+     * @param string $key
+     * @param string $value
+     * @return Claim
+     */
     public static function fromKeyValue(string $key, $value): Claim
     {
         return new static($key, $value);
