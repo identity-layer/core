@@ -19,11 +19,6 @@ class RS implements Jwa
         $this->algorithm = $algorithm;
     }
 
-    public function type(): AlgorithmFamily
-    {
-        return AlgorithmFamily::RS();
-    }
-
     public function name(): AlgorithmName
     {
         return $this->algorithm;

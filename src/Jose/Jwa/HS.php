@@ -4,39 +4,32 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose\Jwa;
 
-use IdentityLayer\Jose\AlgorithmFamily;
 use IdentityLayer\Jose\AlgorithmName;
 use IdentityLayer\Jose\Jwa;
+use IdentityLayer\Jose\Jwk\SigningKey;
+use IdentityLayer\Jose\Jwk\VerificationKey;
 
 class HS implements Jwa
 {
+    private AlgorithmName $algorithm;
+
+    public function __construct(AlgorithmName $algorithm)
+    {
+        $this->algorithm = $algorithm;
+    }
+
     public function name(): AlgorithmName
     {
-        // TODO: Implement name() method.
+        return $this->algorithm;
     }
 
-    public function type(): AlgorithmFamily
+    public function sign(SigningKey $key, $message): string
     {
-        // TODO: Implement type() method.
+        return $key->sign($this->algorithm, $message);
     }
 
-    public function sign($message): string
+    public function verify(VerificationKey $key, string $message, string $signature): bool
     {
-        // TODO: Implement sign() method.
-    }
-
-    public function verify(string $message, string $signature): bool
-    {
-        // TODO: Implement verify() method.
-    }
-
-    public function toPublicJwkFormat(): array
-    {
-        // TODO: Implement toPublicJwkFormat() method.
-    }
-
-    public function kid(): string
-    {
-        // TODO: Implement kid() method.
+        return $key->verify($this->algorithm, $message, $signature);
     }
 }

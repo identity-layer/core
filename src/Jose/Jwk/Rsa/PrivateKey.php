@@ -96,10 +96,16 @@ class PrivateKey implements KeyPair
 
     public function kid(): string
     {
-        $publicBytes = $this->privateKey->modulus->toBytes() . $this->privateKey->publicExponent->toBytes();
+        $base = [
+            'e' => Base64UrlSafe::encodeUnpadded($this->privateKey->publicExponent->toBytes()),
+            'kty' => 'RSA',
+            'n' => Base64UrlSafe::encodeUnpadded($this->privateKey->modulus->toBytes()),
+        ];
+
+        $baseJsonEncoded = json_encode($base);
 
         return Base64UrlSafe::encodeUnpadded(
-            hash('sha256', $publicBytes)
+            hash('sha256', $baseJsonEncoded, true)
         );
     }
 

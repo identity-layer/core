@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose\Jwa;
 
-use IdentityLayer\Jose\AlgorithmFamily;
 use IdentityLayer\Jose\AlgorithmName;
-use IdentityLayer\Jose\Exception\NoneAlgorithmIllegalOperationException;
+use IdentityLayer\Jose\Exception\NoneHashingAlgorithmException;
 use IdentityLayer\Jose\Jwa;
+use IdentityLayer\Jose\Jwk\SigningKey;
+use IdentityLayer\Jose\Jwk\VerificationKey;
 
+/**
+ * Whilst this algorithm is part of the JWA spec, it should not be used in most cases.
+ */
 class None implements Jwa
 {
     public function name(): AlgorithmName
@@ -16,28 +20,13 @@ class None implements Jwa
         return AlgorithmName::NONE();
     }
 
-    public function type(): AlgorithmFamily
+    public function sign(SigningKey $key, $message): string
     {
-        AlgorithmFamily::NONE();
+        throw new NoneHashingAlgorithmException('Cannot sign a message using "none" algorithm.');
     }
 
-    public function sign($message): string
+    public function verify(VerificationKey $key, string $message, string $signature): bool
     {
-        return '';
-    }
-
-    public function verify(string $message, string $signature): bool
-    {
-        return strlen($signature) === 0;
-    }
-
-    public function toPublicJwkFormat(): array
-    {
-        throw new NoneAlgorithmIllegalOperationException('Cannot output none JWA to Jwk format.');
-    }
-
-    public function kid(): string
-    {
-        throw new NoneAlgorithmIllegalOperationException('None algorithm has no ID.');
+        throw new NoneHashingAlgorithmException('Cannot verify a message that uses the "none" algorithm.');
     }
 }

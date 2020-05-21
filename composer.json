@@ -9,18 +9,20 @@
             "email": "alvin@chevolleaux.com"
         }
     ],
+    "config": {
+        "sort-packages": true
+    },
     "minimum-stability": "stable",
     "require": {
         "php": "^7.4",
         "ext-intl": "*",
-        "ext-mbstring": "*",
-        "paragonie/constant_time_encoding": "^2.3",
-        "myclabs/php-enum": "^1.7",
-        "phpseclib/phpseclib": "^2.0",
-        "beberlei/assert": "^3.2",
         "ext-json": "^7.4",
         "alvinchevolleaux/collection": "dev-master",
-        "psr/http-message": "^1.0"
+        "myclabs/php-enum": "^1.7",
+        "paragonie/constant_time_encoding": "^2.3",
+        "phpseclib/phpseclib": "^2.0",
+        "psr/http-message": "^1.0",
+        "symfony/polyfill-mbstring": "^1.17"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.1"

@@ -4,39 +4,33 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose\Jwa;
 
-use IdentityLayer\Jose\AlgorithmFamily;
 use IdentityLayer\Jose\AlgorithmName;
+use IdentityLayer\Jose\Exception\NotImplementedException;
 use IdentityLayer\Jose\Jwa;
+use IdentityLayer\Jose\Jwk\SigningKey;
+use IdentityLayer\Jose\Jwk\VerificationKey;
 
 class PS implements Jwa
 {
+    public function __construct()
+    {
+        throw new NotImplementedException('This algorithm has not been implemented. This ' .
+            'library is still in an experimental state and should be used with caution in any ' .
+            'production environment');
+    }
+
     public function name(): AlgorithmName
     {
         // TODO: Implement name() method.
     }
 
-    public function type(): AlgorithmFamily
-    {
-        // TODO: Implement type() method.
-    }
-
-    public function sign($message): string
+    public function sign(SigningKey $key, $message): string
     {
         // TODO: Implement sign() method.
     }
 
-    public function verify(string $message, string $signature): bool
+    public function verify(VerificationKey $key, string $message, string $signature): bool
     {
         // TODO: Implement verify() method.
-    }
-
-    public function toPublicJwkFormat(): array
-    {
-        // TODO: Implement toPublicJwkFormat() method.
-    }
-
-    public function kid(): string
-    {
-        // TODO: Implement kid() method.
     }
 }
