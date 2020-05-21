@@ -6,6 +6,8 @@ namespace IdentityLayer\Tests\Jose\Jwk\Hmac;
 
 use IdentityLayer\Jose\AlgorithmName;
 use IdentityLayer\Jose\Jwk\Hmac\Hmac256;
+use IdentityLayer\Jose\Jwk\Hmac\Hmac384;
+use IdentityLayer\Jose\Jwk\Hmac\Hmac512;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 use PHPUnit\Framework\TestCase;
 
@@ -29,7 +31,7 @@ class HmacTest extends TestCase
 
         $message384 = 'eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ';
         $expectedSignature = '2_ScYSRmK_GBZ7LkwcCk8X2on-CbtUoq14edumYQnqlAsR8i5I2b2Qm6LF0OSwyL';
-        $jwk = Hmac256::fromKidAndKey('1', 'ⵇ頞샴揎庋騒䦘뎌誾﯎̀ቲ谀຅䘖꺹ㄏඞ嚙鶲⑐澤');
+        $jwk = Hmac384::fromKidAndKey('1', 'ⵇ頞샴揎庋騒䦘뎌誾﯎̀ቲ谀຅䘖꺹ㄏඞ嚙鶲⑐澤');
         $this->assertEquals(
             $expectedSignature,
             Base64UrlSafe::encodeUnpadded(
@@ -39,7 +41,7 @@ class HmacTest extends TestCase
 
         $message512 = 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ';
         $expectedSignature = 'TpLSjCoaJ9Zl95TVT5f9xh-H8BnD6XbgOojzXFgu5Tm8fthxMbiaNlQYHUgB1gtfRrYcR95nrZLaix2hClrGuA';
-        $jwk = Hmac256::fromKidAndKey('1', '降驱쓑በꠊ翟溊㊓툀ᇐ霋㔀΍捜뮨ʑ䦻ᔱ铗ꦛ枩鷠烀矾鮟ꥏ鹿凯궑鐍');
+        $jwk = Hmac512::fromKidAndKey('1', '降驱쓑በꠊ翟溊㊓툀ᇐ霋㔀΍捜뮨ʑ䦻ᔱ铗ꦛ枩鷠烀矾鮟ꥏ鹿凯궑鐍');
         $this->assertEquals(
             $expectedSignature,
             Base64UrlSafe::encodeUnpadded(

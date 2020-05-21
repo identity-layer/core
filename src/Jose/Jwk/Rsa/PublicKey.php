@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose\Jwk\Rsa;
 
+use IdentityLayer\Jose\AlgorithmFamily;
 use IdentityLayer\Jose\AlgorithmName;
+use IdentityLayer\Jose\Exception\InvalidAlgorithmException;
+use IdentityLayer\Jose\Exception\InvalidArgumentException;
 use IdentityLayer\Jose\Jwk\JwkSerialisable;
 use IdentityLayer\Jose\Jwk\VerificationKey;
 use ParagonIE\ConstantTime\Base64UrlSafe;
-use phpseclib\Crypt\RSA;
-use IdentityLayer\Jose\Exception\InvalidArgumentException;
 
-class PublicKey implements VerificationKey, JwkSerialisable
+final class PublicKey implements VerificationKey, JwkSerialisable
 {
     private $keyResource;
     private string $publicExponent;
@@ -46,6 +47,16 @@ class PublicKey implements VerificationKey, JwkSerialisable
         string $message,
         string $signature
     ): bool {
+
+        if (!$algorithmName->algorithmFamily()->equals(AlgorithmFamily::RS())) {
+            throw new InvalidAlgorithmException(
+                sprintf(
+                    '%s is not a valid algorithm for use with an RSA key',
+                    $algorithmName->getValue()
+                )
+            );
+        }
+
         return openssl_verify(
             $message,
             $signature,

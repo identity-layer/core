@@ -6,7 +6,7 @@ namespace IdentityLayer\Jose\Exception;
 
 use RuntimeException;
 
-class NoneHashingAlgorithmException extends RuntimeException
+class NoneAlgorithmException extends RuntimeException
 {
 
 }

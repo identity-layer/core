@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose;
 
-use IdentityLayer\Jose\Exception\NoneHashingAlgorithmException;
+use IdentityLayer\Jose\Exception\NoneAlgorithmException;
 use IdentityLayer\Jose\Exception\UnrecognisedJwaException;
 use MyCLabs\Enum\Enum;
 
@@ -41,7 +41,7 @@ class AlgorithmName extends Enum
     private const PS512 = 'PS512';
     private const NONE = 'none';
 
-    public function algorithmType(): AlgorithmFamily
+    public function algorithmFamily(): AlgorithmFamily
     {
         switch ($this->value) {
             case self::HS256:
@@ -86,7 +86,7 @@ class AlgorithmName extends Enum
             case self::PS512:
                 return 'sha512';
             case self::NONE:
-                throw new NoneHashingAlgorithmException('Algorithm none has no hashing algorithm');
+                throw new NoneAlgorithmException('Algorithm none has no hashing algorithm');
         }
     }
 }

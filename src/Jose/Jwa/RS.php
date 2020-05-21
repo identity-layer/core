@@ -10,7 +10,7 @@ use IdentityLayer\Jose\Jwa;
 use IdentityLayer\Jose\Jwk\SigningKey;
 use IdentityLayer\Jose\Jwk\VerificationKey;
 
-class RS implements Jwa
+final class RS implements Jwa
 {
     private AlgorithmName $algorithm;
 

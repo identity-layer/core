@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose\Jwk\Rsa;
 
-use IdentityLayer\Core\Jose\Jwa\RS;
+use IdentityLayer\Jose\AlgorithmFamily;
 use IdentityLayer\Jose\AlgorithmName;
+use IdentityLayer\Jose\Exception\InvalidAlgorithmException;
 use IdentityLayer\Jose\Exception\InvalidArgumentException;
 use IdentityLayer\Jose\Exception\SigningException;
 use IdentityLayer\Jose\Jwk\KeyPair;
-use IdentityLayer\Jose\Jwk\SigningKey;
 use IdentityLayer\Jose\Jwk\VerificationKey;
 use ParagonIE\ConstantTime\Base64UrlSafe;
-use phpseclib\Crypt\RSA;
-use phpseclib\Math\BigInteger;
 
-class PrivateKey implements KeyPair
+final class PrivateKey implements KeyPair
 {
     private $keyResource;
     private string $modulus;
@@ -79,6 +77,15 @@ class PrivateKey implements KeyPair
 
     public function sign(AlgorithmName $algorithmName, string $message): string
     {
+        if (!$algorithmName->algorithmFamily()->equals(AlgorithmFamily::RS())) {
+            throw new InvalidAlgorithmException(
+                sprintf(
+                    '%s is not a valid algorithm for use with an RSA key',
+                    $algorithmName->getValue()
+                )
+            );
+        }
+
         $signature = null;
         $result = openssl_sign(
             $message,
@@ -97,6 +104,15 @@ class PrivateKey implements KeyPair
 
     public function verify(AlgorithmName $algorithmName, string $message, string $signature): bool
     {
+        if (!$algorithmName->algorithmFamily()->equals(AlgorithmFamily::RS())) {
+            throw new InvalidAlgorithmException(
+                sprintf(
+                    '%s is not a valid algorithm for use with an RSA key',
+                    $algorithmName->getValue()
+                )
+            );
+        }
+
         return $this->sign($algorithmName, $message) === $signature;
     }
 }

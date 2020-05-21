@@ -10,7 +10,7 @@ use IdentityLayer\Jose\Jwa;
 use IdentityLayer\Jose\Jwk\SigningKey;
 use IdentityLayer\Jose\Jwk\VerificationKey;
 
-class ES implements Jwa
+final class ES implements Jwa
 {
     public function __construct()
     {
