@@ -11,6 +11,10 @@ use IdentityLayer\Jose\Jwk\Rsa\PublicKey;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * These tests were generated using expected results for a number of algorithms with
+ * the private and public keys below.
+ */
 class RSTest extends TestCase
 {
     private string $privateKeyPem;
