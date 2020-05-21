@@ -7,6 +7,7 @@ namespace IdentityLayer\Jose\Jwk\Rsa;
 use IdentityLayer\Core\Jose\Jwa\RS;
 use IdentityLayer\Jose\AlgorithmName;
 use IdentityLayer\Jose\Exception\InvalidArgumentException;
+use IdentityLayer\Jose\Exception\SigningException;
 use IdentityLayer\Jose\Jwk\KeyPair;
 use IdentityLayer\Jose\Jwk\SigningKey;
 use IdentityLayer\Jose\Jwk\VerificationKey;
@@ -16,90 +17,52 @@ use phpseclib\Math\BigInteger;
 
 class PrivateKey implements KeyPair
 {
-    private RSA $privateKey;
-    private RSA $publicKey;
+    private $keyResource;
+    private string $modulus;
+    private string $publicExponent;
+    private string $privateExponent;
+    private string $prime1;
+    private string $prime2;
+    private string $dmp1;
+    private string $dmq1;
+    private string $iqmp;
 
-    private function __construct(RSA $privateKey, RSA $publicKey = null)
+    private function __construct(string $pemEncodedKey)
     {
-        if (empty($privateKey->primes) || count($privateKey->primes) != 2) {
-            throw new InvalidArgumentException('The private key provided is not a valid.');
+        $resource = openssl_pkey_get_private($pemEncodedKey);
+
+        if ($resource === false) {
+            throw new InvalidArgumentException('public key is not valid');
         }
 
-        $privateKey->setSignatureMode(RSA::SIGNATURE_PKCS1);
+        $details = openssl_pkey_get_details($resource);
 
-        if ($publicKey === null) {
-            $publicKeyPemEncoded = $privateKey->getPublicKey();
-            if ($publicKeyPemEncoded === false) {
-                throw new InvalidArgumentException(
-                    sprintf('The private key provided is invalid. Could not extract public key.')
-                );
-            }
-
-            $publicKey = new RSA();
-            $result = $publicKey->loadKey($publicKeyPemEncoded);
-            if ($result !== true) {
-                throw new InvalidArgumentException('Could not extract public key from provided private key.');
-            }
+        if ($details === false) {
+            throw new InvalidArgumentException('Key is not an RSA public key');
         }
 
-        if (!$publicKey->modulus instanceof BigInteger || !$publicKey->exponent instanceof BigInteger) {
-            throw new InvalidArgumentException('The public key provided is not valid.');
-        }
-
-        $this->privateKey = clone $privateKey;
-        $this->publicKey = clone $publicKey;
+        $this->keyResource = $resource;
+        $this->modulus = $details['rsa']['n'];
+        $this->publicExponent = $details['rsa']['e'];
+        $this->privateExponent = $details['rsa']['d'];
+        $this->prime1 = $details['rsa']['p'];
+        $this->prime2 = $details['rsa']['q'];
+        $this->dmp1 = $details['rsa']['dmp1'];
+        $this->dmq1 = $details['rsa']['dmq1'];
+        $this->iqmp = $details['rsa']['iqmp'];
     }
 
     public static function fromPrivateKeyPemEncoded(string $privateKeyPemEncoded): PrivateKey
     {
-        $privateKey = new RSA();
-        $result = $privateKey->loadKey($privateKeyPemEncoded);
-
-        if ($result !== true) {
-            throw new InvalidArgumentException('Not a valid PEM encoded RSA PKCS1 private key');
-        }
-
-        return new PrivateKey($privateKey);
-    }
-
-    public function toJwkFormat(): string
-    {
-        /**
-         * @var BigInteger $p
-         * @var BigInteger $q
-         */
-        list($p, $q) = $this->privateKey->primes;
-
-        /**
-         * @var BigInteger $dp
-         * @var BigInteger $dq
-         */
-        list($dp, $dq) = $this->privateKey->exponents;
-
-        /** @var BigInteger $qi */
-        $qi = $this->privateKey->coefficients[0];
-
-        return json_encode([
-            'kty' => 'RSA',
-            'kid' => $this->kid(),
-            'use' => 'enc',
-            'n' => Base64UrlSafe::encodeUnpadded($this->privateKey->modulus->toBytes()),
-            'e' => Base64UrlSafe::encodeUnpadded($this->privateKey->publicExponent->toBytes()),
-            'd' => Base64UrlSafe::encodeUnpadded($this->privateKey->exponent->toBytes()),
-            'p' => Base64UrlSafe::encodeUnpadded($p->toBytes()),
-            'q' => Base64UrlSafe::encodeUnpadded($q->toBytes()),
-            'dp' => Base64UrlSafe::encodeUnpadded($dp->toBytes()),
-            'dq' => Base64UrlSafe::encodeUnpadded($dq->toBytes()),
-            'qi' => Base64UrlSafe::encodeUnpadded($qi->toBytes()),
-        ]);
+        return new PrivateKey($privateKeyPemEncoded);
     }
 
     public function kid(): string
     {
         $base = [
-            'e' => Base64UrlSafe::encodeUnpadded($this->privateKey->publicExponent->toBytes()),
+            'e' => Base64UrlSafe::encodeUnpadded($this->publicExponent),
             'kty' => 'RSA',
-            'n' => Base64UrlSafe::encodeUnpadded($this->privateKey->modulus->toBytes()),
+            'n' => Base64UrlSafe::encodeUnpadded($this->modulus),
         ];
 
         $baseJsonEncoded = json_encode($base);
@@ -111,20 +74,29 @@ class PrivateKey implements KeyPair
 
     public function getVerificationKey(): VerificationKey
     {
-        return PublicKey::fromPublicKeyPemEncoded((string) $this->publicKey);
+        return PublicKey::fromPublicKeyPemEncoded();
     }
 
     public function sign(AlgorithmName $algorithmName, string $message): string
     {
-        $this->privateKey->setHash($algorithmName->hashingAlgorithm());
+        $signature = null;
+        $result = openssl_sign(
+            $message,
+            $signature,
+            $this->keyResource,
+            "RSA-{$algorithmName->hashingAlgorithm()}"
+        );
 
-        return $this->privateKey->sign($message);
+        if ($result === false || $signature === null) {
+            throw new SigningException('An unexpected error occured while attempting to sign ' .
+                'message with private key.');
+        }
+
+        return $signature;
     }
 
     public function verify(AlgorithmName $algorithmName, string $message, string $signature): bool
     {
-        $this->privateKey->setHash($algorithmName->hashingAlgorithm());
-
-        return $this->privateKey->sign($message) === $signature;
+        return $this->sign($algorithmName, $message) === $signature;
     }
 }

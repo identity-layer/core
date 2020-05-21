@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     libgmp3-dev \
     libxml2-dev \
-    git
+    git \
+    unzip
 
 RUN pecl install xdebug
 RUN docker-php-ext-install zip

@@ -30,14 +30,6 @@ abstract class HmacKeyAbstract implements SigningKey, VerificationKey
         return $this->kid;
     }
 
-    public function toJwkFormat(): string
-    {
-        throw new JwkFormatNotAvailableException(
-            'Cannot represent a HMAC key in JWK format. Symmetric keys are unavailable ' .
-            'for representation in JWK format.'
-        );
-    }
-
     public function sign(AlgorithmName $algorithmName, string $message): string
     {
         return hash_hmac($algorithmName->hashingAlgorithm(), $message, $this->key, true);
