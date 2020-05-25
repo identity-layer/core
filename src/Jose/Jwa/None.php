@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose\Jwa;
 
-use IdentityLayer\Jose\AlgorithmName;
+use IdentityLayer\Jose\JwaEnum;
 use IdentityLayer\Jose\Exception\NoneAlgorithmException;
 use IdentityLayer\Jose\Jwa;
 use IdentityLayer\Jose\Jwk\SigningKey;
@@ -15,9 +15,9 @@ use IdentityLayer\Jose\Jwk\VerificationKey;
  */
 final class None implements Jwa
 {
-    public function name(): AlgorithmName
+    public function name(): JwaEnum
     {
-        return AlgorithmName::NONE();
+        return JwaEnum::NONE();
     }
 
     public function sign(SigningKey $key, $message): string

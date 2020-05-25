@@ -4,33 +4,28 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose\Jwa;
 
-use IdentityLayer\Jose\AlgorithmFamily;
-use IdentityLayer\Jose\AlgorithmName;
+use IdentityLayer\Jose\Exception\InvalidAlgorithmException;
 use IdentityLayer\Jose\Jwa;
-use IdentityLayer\Jose\Jwk\SigningKey;
-use IdentityLayer\Jose\Jwk\VerificationKey;
+use IdentityLayer\Jose\JwaEnum;
+use IdentityLayer\Jose\JwaFamilyEnum;
 
 final class RS implements Jwa
 {
-    private AlgorithmName $algorithm;
+    private JwaEnum $algorithm;
 
-    public function __construct(AlgorithmName $algorithm)
+    public function __construct(JwaEnum $algorithm)
     {
+        if (!$algorithm->family()->equals(JwaFamilyEnum::RS())) {
+            throw new InvalidAlgorithmException(
+                sprintf(
+                    '%s is not a member of the RS family of JWA',
+                    $algorithm->getValue()
+                )
+            );
+        }
+
         $this->algorithm = $algorithm;
     }
 
-    public function name(): AlgorithmName
-    {
-        return $this->algorithm;
-    }
-
-    public function sign(SigningKey $key, $message): string
-    {
-        return $key->sign($this->algorithm, $message);
-    }
-
-    public function verify(VerificationKey $key, string $message, string $signature): bool
-    {
-        return $key->verify($this->algorithm, $message, $signature);
-    }
+    use JwaTrait;
 }

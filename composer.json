@@ -19,6 +19,7 @@
         "ext-json": "^7.4",
         "ext-openssl": "^7.4",
         "alvinchevolleaux/collection": "^0.1",
+        "fgrosse/phpasn1": "^2.1",
         "myclabs/php-enum": "^1.7",
         "paragonie/constant_time_encoding": "^2.3",
         "symfony/polyfill-mbstring": "^1.17"

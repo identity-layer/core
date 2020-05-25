@@ -4,33 +4,28 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose\Jwa;
 
-use IdentityLayer\Jose\AlgorithmName;
-use IdentityLayer\Jose\Exception\NotImplementedException;
+use IdentityLayer\Jose\Exception\InvalidAlgorithmException;
 use IdentityLayer\Jose\Jwa;
-use IdentityLayer\Jose\Jwk\SigningKey;
-use IdentityLayer\Jose\Jwk\VerificationKey;
+use IdentityLayer\Jose\JwaEnum;
+use IdentityLayer\Jose\JwaFamilyEnum;
 
 final class ES implements Jwa
 {
-    public function __construct()
+    private JwaEnum $algorithm;
+
+    public function __construct(JwaEnum $algorithm)
     {
-        throw new NotImplementedException('This algorithm has not been implemented. This ' .
-            'library is still in an experimental state and should be used with caution in any ' .
-            'production environment');
+        if (!$algorithm->family()->equals(JwaFamilyEnum::HS())) {
+            throw new InvalidAlgorithmException(
+                sprintf(
+                    '%s is not a member of the RS family of JWA',
+                    $algorithm->getValue()
+                )
+            );
+        }
+
+        $this->algorithm = $algorithm;
     }
 
-    public function name(): AlgorithmName
-    {
-        // TODO: Implement name() method.
-    }
-
-    public function sign(SigningKey $key, $message): string
-    {
-        // TODO: Implement sign() method.
-    }
-
-    public function verify(VerificationKey $key, string $message, string $signature): bool
-    {
-        // TODO: Implement verify() method.
-    }
+    use JwaTrait;
 }

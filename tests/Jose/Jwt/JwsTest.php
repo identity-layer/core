@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Tests\Jose\Jwt;
 
-use IdentityLayer\Jose\AlgorithmName;
+use IdentityLayer\Jose\JwaEnum;
 use IdentityLayer\Jose\ClaimFactory;
 use IdentityLayer\Jose\Jwa\RS;
 use IdentityLayer\Jose\Jwk\Rsa\PrivateKey;
@@ -49,10 +49,10 @@ UWyqtp06tHJpOCb6E7Ut4SDmEvMobTaQSygu61nXOLMHpJEBwSejYJL8DEksUfqz
     public function testToCompactSerialisedFormat()
     {
         $privateKey = PrivateKey::fromPrivateKeyPemEncoded($this->privateKeyPem);
-        $rs256 = new RS(AlgorithmName::RS256());
+        $rs256 = new RS(JwaEnum::RS256());
 
         $header = [
-            'alg' => AlgorithmName::RS256()->getValue(),
+            'alg' => JwaEnum::RS256()->getValue(),
             'typ' => 'JWT',
         ];
 

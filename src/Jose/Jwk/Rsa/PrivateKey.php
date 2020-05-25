@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose\Jwk\Rsa;
 
-use IdentityLayer\Jose\AlgorithmFamily;
-use IdentityLayer\Jose\AlgorithmName;
+use FG\ASN1\ASNObject;
+use IdentityLayer\Jose\JwaFamilyEnum;
+use IdentityLayer\Jose\JwaEnum;
 use IdentityLayer\Jose\Exception\InvalidAlgorithmException;
 use IdentityLayer\Jose\Exception\InvalidArgumentException;
 use IdentityLayer\Jose\Exception\SigningException;
-use IdentityLayer\Jose\Jwk\KeyPair;
+use IdentityLayer\Jose\Jwk\SigningKey;
 use IdentityLayer\Jose\Jwk\VerificationKey;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 
-final class PrivateKey implements KeyPair
+final class PrivateKey implements SigningKey, VerificationKey
 {
     private $keyResource;
     private string $modulus;
@@ -27,19 +28,19 @@ final class PrivateKey implements KeyPair
 
     private function __construct(string $pemEncodedKey)
     {
-        $resource = openssl_pkey_get_private($pemEncodedKey);
+        $keyResource = openssl_pkey_get_private($pemEncodedKey);
 
-        if ($resource === false) {
-            throw new InvalidArgumentException('public key is not valid');
+        if ($keyResource === false) {
+            throw new InvalidArgumentException('private key is not valid');
         }
 
-        $details = openssl_pkey_get_details($resource);
+        $details = openssl_pkey_get_details($keyResource);
 
         if ($details === false) {
             throw new InvalidArgumentException('Key is not an RSA public key');
         }
 
-        $this->keyResource = $resource;
+        $this->keyResource = $keyResource;
         $this->modulus = $details['rsa']['n'];
         $this->publicExponent = $details['rsa']['e'];
         $this->privateExponent = $details['rsa']['d'];
@@ -75,23 +76,16 @@ final class PrivateKey implements KeyPair
         return PublicKey::fromPublicKeyPemEncoded();
     }
 
-    public function sign(AlgorithmName $algorithmName, string $message): string
+    public function sign(JwaEnum $algorithmName, string $message): string
     {
-        if (!$algorithmName->algorithmFamily()->equals(AlgorithmFamily::RS())) {
-            throw new InvalidAlgorithmException(
-                sprintf(
-                    '%s is not a valid algorithm for use with an RSA key',
-                    $algorithmName->getValue()
-                )
-            );
-        }
+        $this->validateAlgorithm($algorithmName);
 
         $signature = null;
         $result = openssl_sign(
             $message,
             $signature,
             $this->keyResource,
-            "RSA-{$algorithmName->hashingAlgorithm()}"
+            $algorithmName->hashingAlgorithm()
         );
 
         if ($result === false || $signature === null) {
@@ -99,20 +93,34 @@ final class PrivateKey implements KeyPair
                 'message with private key.');
         }
 
+        $asnObject = ASNObject::fromBinary($signature);
+
+        if (!$asnObject instanceof ASNObject) {
+            throw new SigningException('Could not generate signature');
+        }
+
+        $asnParts = $asnObject->getChildren();
+        foreach ($asnParts as $asnPart) {
+            var_dump($asnPart);
+        }
+
         return $signature;
     }
 
-    public function verify(AlgorithmName $algorithmName, string $message, string $signature): bool
+    public function verify(JwaEnum $algorithmName, string $message, string $signature): bool
     {
-        if (!$algorithmName->algorithmFamily()->equals(AlgorithmFamily::RS())) {
+        return $this->sign($algorithmName, $message) === $signature;
+    }
+
+    public function validateAlgorithm(JwaEnum $algorithm): void
+    {
+        if (!$algorithm->family()->equals(JwaFamilyEnum::RS())) {
             throw new InvalidAlgorithmException(
                 sprintf(
                     '%s is not a valid algorithm for use with an RSA key',
-                    $algorithmName->getValue()
+                    $algorithm->getValue()
                 )
             );
         }
-
-        return $this->sign($algorithmName, $message) === $signature;
     }
 }

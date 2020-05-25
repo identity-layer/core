@@ -9,7 +9,7 @@ use IdentityLayer\Jose\Jwk\VerificationKey;
 
 interface Jwa
 {
-    public function name(): AlgorithmName;
+    public function name(): JwaEnum;
 
     public function sign(SigningKey $key, $message): string;
 

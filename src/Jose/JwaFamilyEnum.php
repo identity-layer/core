@@ -10,13 +10,13 @@ use MyCLabs\Enum\Enum;
  * Class AlgorithmType
  * @package IdentityLayer\Core\Jose
  *
- * @method static AlgorithmFamily HS()
- * @method static AlgorithmFamily RS()
- * @method static AlgorithmFamily ES()
- * @method static AlgorithmFamily PS()
- * @method static AlgorithmFamily NONE()
+ * @method static JwaFamilyEnum HS()
+ * @method static JwaFamilyEnum RS()
+ * @method static JwaFamilyEnum ES()
+ * @method static JwaFamilyEnum PS()
+ * @method static JwaFamilyEnum NONE()
  */
-class AlgorithmFamily extends Enum
+class JwaFamilyEnum extends Enum
 {
     private const HS = 'HS';
     private const RS = 'RS';

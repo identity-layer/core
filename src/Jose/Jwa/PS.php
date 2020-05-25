@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose\Jwa;
 
-use IdentityLayer\Jose\AlgorithmName;
 use IdentityLayer\Jose\Exception\NotImplementedException;
 use IdentityLayer\Jose\Jwa;
-use IdentityLayer\Jose\Jwk\SigningKey;
-use IdentityLayer\Jose\Jwk\VerificationKey;
 
 final class PS implements Jwa
 {
@@ -19,18 +16,5 @@ final class PS implements Jwa
             'production environment');
     }
 
-    public function name(): AlgorithmName
-    {
-        // TODO: Implement name() method.
-    }
-
-    public function sign(SigningKey $key, $message): string
-    {
-        // TODO: Implement sign() method.
-    }
-
-    public function verify(VerificationKey $key, string $message, string $signature): bool
-    {
-        // TODO: Implement verify() method.
-    }
+    use JwaTrait;
 }

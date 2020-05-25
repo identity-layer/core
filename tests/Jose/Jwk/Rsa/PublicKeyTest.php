@@ -29,4 +29,19 @@ gwIDAQAB
 
         $this->assertEquals('NzbLsXh8uDCcd-6MNwXF4W_7noWXFZAfHkxZsRGC9Xs', $publicKey->kid());
     }
+
+    public function testFromJwk()
+    {
+        $jwkData = [
+            'kty' => 'RSA',
+            'use' => 'sig',
+            'kid' => 'zFHVsM9dc4OlHIwvEnVqfKzRj1ujqYGsZnXAcgn_CqI',
+            'n' => 'nzyis1ZjfNB0bBgKFMSvvkTtwlvBsaJq7S5wA-kzeVOVpVWwkWdVha4s38XM_pa_yr47av7-z3VTmvDRyAHcaT92whREFpLv9cj5lTeJSibyr_Mrm_YtjCZVWgaOYIhwrXwKLqPr_11inWsAkfIytvHWTxZYEcXLgAXFuUuaS3uF9gEiNQwzGTU1v0FqkqTBr4B8nW3HCN47XUu0t8Y0e-lf4s4OxQawWD79J9_5d3Ry0vbV3Am1FtGJiJvOwRsIfVChDpYStTcHTCMqtvWbV6L11BWkpzGXSW4Hv43qa-GSYOD2QU68Mb59oSk2OB-BtOLpJofmbGEGgvmwyCI9Mw',
+            'e' => 'AQAB',
+        ];
+
+        $publicKey = PublicKey::fromJwkData($jwkData);
+
+        $this->assertEquals($jwkData, json_decode($publicKey->toJwkFormat(), true));
+    }
 }
