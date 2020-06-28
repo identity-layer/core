@@ -15,21 +15,31 @@ algorithms otherwise.
 The library keeps external dependencies to a minimum so works well in environments
 with complex dependency requirements.
 
+## Installation
+
+Installation via Composer 
+
+`composer require identitylayer/jose`
+
+### Requirements
+* PHP ^7.4
+* PHP OpenSSL extension
+
 ## Supported Algorithms
-| Algorithm | Supported |
-|-----------|-----------|
-| HS256     | ✔ |
-| HS384     | ✔ |
-| HS512     | ✔ |
-| RS256     | ✔ |
-| RS384     | ✔ |
-| RS512     | ✔ |
-| PS256     | ✖ |
-| PS384     | ✖ |
-| PS512     | ✖ |
-| ES256     | ✖ |
-| ES384     | ✖ |
-| ES512     | ✖ |
+| Algorithm | Supported | Implementation |
+|-----------|-----------|----------------|
+| HS256 | ✔ | PHP hash function |
+| HS384 | ✔ | PHP hash function |
+| HS512 | ✔ | PHP hash function |
+| RS256 | ✔ | OpenSSL |
+| RS384 | ✔ | OpenSSL |
+| RS512 | ✔ | OpenSSL |
+| PS256 | ✖ |
+| PS384 | ✖ |
+| PS512 | ✖ |
+| ES256 | ✖ |
+| ES384 | ✖ |
+| ES512 | ✖ |
 
 
 
