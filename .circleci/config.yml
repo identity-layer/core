@@ -31,8 +31,8 @@ jobs:
             - ./vendor
 
       - run:
-        name: PHP Static Analysis
-        command: ./vendor/bin/phpstan analyse
+          name: PHP Static Analysis
+          command: ./vendor/bin/phpstan analyse
 
       - run:
           name: PHP Coding Standards
