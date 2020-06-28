@@ -20,7 +20,7 @@ final class None implements Jwa
         return JwaEnum::NONE();
     }
 
-    public function sign(SigningKey $key, $message): string
+    public function sign(SigningKey $key, string $message): string
     {
         throw new NoneAlgorithmException('Cannot sign a message using "none" algorithm.');
     }

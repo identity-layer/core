@@ -89,6 +89,8 @@ class JwaEnum extends Enum
             case self::NONE:
                 throw new NoneAlgorithmException('Algorithm none has no hashing algorithm');
         }
+
+        return '';
     }
 
     public function ecdsaCurveValue(): string

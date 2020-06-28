@@ -17,9 +17,9 @@ use PHPUnit\Framework\TestCase;
  */
 class HmacTest extends TestCase
 {
-    public function testSignatureGenerationWithAllHmacVariants()
+    public function testSignatureGenerationWithAllHmacVariants(): void
     {
-        $message256 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ';
+        $message256 = file_get_contents(__DIR__ . '/message256');
         $expectedSignature = 'LymGnxhOWevapacuiYbxRibRINCqHOa_oCtZ0MBxIrI';
         $jwk = Hmac::fromKidAndKey('1', 'y:¹£ö;"T.Gvš×äâÖåUgøé!œ¡%ôÍ');
         $this->assertEquals(
@@ -29,7 +29,7 @@ class HmacTest extends TestCase
             )
         );
 
-        $message384 = 'eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ';
+        $message384 = file_get_contents(__DIR__ . '/message384');
         $expectedSignature = '2_ScYSRmK_GBZ7LkwcCk8X2on-CbtUoq14edumYQnqlAsR8i5I2b2Qm6LF0OSwyL';
         $jwk = Hmac::fromKidAndKey('2', 'ⵇ頞샴揎庋騒䦘뎌誾﯎̀ቲ谀຅䘖꺹ㄏඞ嚙鶲⑐澤');
         $this->assertEquals(
@@ -39,7 +39,7 @@ class HmacTest extends TestCase
             )
         );
 
-        $message512 = 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ';
+        $message512 = file_get_contents(__DIR__ . '/message512');
         $expectedSignature = 'TpLSjCoaJ9Zl95TVT5f9xh-H8BnD6XbgOojzXFgu5Tm8fthxMbiaNlQYHUgB1gtfRrYcR95nrZLaix2hClrGuA';
         $jwk = Hmac::fromKidAndKey('3', '降驱쓑በꠊ翟溊㊓툀ᇐ霋㔀΍捜뮨ʑ䦻ᔱ铗ꦛ枩鷠烀矾鮟ꥏ鹿凯궑鐍');
         $this->assertEquals(

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose;
 
+use AlvinChevolleaux\Collection\Collection;
 use IdentityLayer\Jose\Claim\BooleanClaim;
 use IdentityLayer\Jose\Claim\EmailClaim;
 use IdentityLayer\Jose\Claim\GenericClaim;
@@ -23,9 +24,17 @@ class ClaimFactory
             $parsedClaims[] = static::createClaim($key, $value);
         }
 
-        return ClaimCollection::fromArray($parsedClaims);
+        /** @var ClaimCollection $collection */
+        $collection = ClaimCollection::fromArray($parsedClaims);
+
+        return $collection;
     }
 
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return Claim
+     */
     public static function createClaim(string $key, $value): Claim
     {
         $claim = static::getClaim($key, $value);
@@ -37,6 +46,11 @@ class ClaimFactory
         return $claim;
     }
 
+    /**
+     * @param mixed $key
+     * @param mixed $value
+     * @return Claim
+     */
     private static function getClaim($key, $value): Claim
     {
         switch ($key) {

@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class PhoneNumberClaimTest extends TestCase
 {
-    public function testValidPhoneNumber()
+    public function testValidPhoneNumber(): void
     {
         $validPhoneNumbers = [
             '+1 202 555 0174',
@@ -24,7 +24,7 @@ class PhoneNumberClaimTest extends TestCase
         }
     }
 
-    public function testInvalidPhoneNumber()
+    public function testInvalidPhoneNumber(): void
     {
         $this->expectException(InvalidArgumentException::class);
         PhoneNumberClaim::fromKeyValue('phone', '12345');

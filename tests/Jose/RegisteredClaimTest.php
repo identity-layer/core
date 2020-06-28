@@ -12,7 +12,7 @@ use InvalidArgumentException;
 
 class RegisteredClaimTest extends TestCase
 {
-    public function testWithRegisteredKey()
+    public function testWithRegisteredKey(): void
     {
         $mockClaim = $this->createMock(GenericClaim::class);
 
@@ -22,7 +22,7 @@ class RegisteredClaimTest extends TestCase
         }
     }
 
-    public function testWithUnregisteredKey()
+    public function testWithUnregisteredKey(): void
     {
         $mockClaim = $this->createMock(GenericClaim::class);
         $this->expectException(\UnexpectedValueException::class);

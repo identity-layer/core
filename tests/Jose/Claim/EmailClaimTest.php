@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class EmailClaimTest extends TestCase
 {
-    public function testWithValidEmail()
+    public function testWithValidEmail(): void
     {
         $validEmail = 'joe@bloggs.com';
         $emailClaim = EmailClaim::fromKeyValue('test', $validEmail);
@@ -19,11 +19,11 @@ class EmailClaimTest extends TestCase
         $this->assertEquals(['test' => $validEmail], $emailClaim->jsonSerialize());
     }
 
-    public function testWithInvalidEmail()
+    public function testWithInvalidEmail(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
         $invalidEmail = 'invalid.email';
-        $emailClaim = EmailClaim::fromKeyValue('test', $invalidEmail);
+        EmailClaim::fromKeyValue('test', $invalidEmail);
     }
 }

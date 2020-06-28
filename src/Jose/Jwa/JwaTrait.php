@@ -10,12 +10,14 @@ use IdentityLayer\Jose\Jwk\VerificationKey;
 
 trait JwaTrait
 {
+    private JwaEnum $algorithm;
+
     public function name(): JwaEnum
     {
         return $this->algorithm;
     }
 
-    public function sign(SigningKey $key, $message): string
+    public function sign(SigningKey $key, string $message): string
     {
         return $key->sign($this->algorithm, $message);
     }

@@ -7,21 +7,21 @@ namespace IdentityLayer\Jose;
 use AlvinChevolleaux\Collection\Exception\InvalidTypeException;
 use AlvinChevolleaux\Collection\ImmutableSet;
 
-class JwaCollection extends ImmutableSet
+class JwkCollection extends ImmutableSet
 {
-    public static function T(): string
+    public static function t(): string
     {
-        return Jwa::class;
+        return Jwk::class;
     }
 
     public static function itemsEqual(object $item1, object $item2): bool
     {
-        if (!$item1 instanceof Jwa || !$item2 instanceof Jwa) {
+        if (!$item1 instanceof Jwk || !$item2 instanceof Jwk) {
             throw new InvalidTypeException(
-                sprintf('Both comparators must be of type %s', Jwa::class)
+                sprintf('Both comparators must be of type %s', Jwk::class)
             );
         }
 
-        return $item1->kid() === $item2->kid();
+        return $item1->kid() === $item2->kid() && get_class($item1) === get_class($item2);
     }
 }

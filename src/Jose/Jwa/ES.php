@@ -4,28 +4,17 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose\Jwa;
 
-use IdentityLayer\Jose\Exception\InvalidAlgorithmException;
+use IdentityLayer\Jose\Exception\NotImplementedException;
 use IdentityLayer\Jose\Jwa;
-use IdentityLayer\Jose\JwaEnum;
-use IdentityLayer\Jose\JwaFamilyEnum;
 
 final class ES implements Jwa
 {
-    private JwaEnum $algorithm;
-
-    public function __construct(JwaEnum $algorithm)
-    {
-        if (!$algorithm->family()->equals(JwaFamilyEnum::HS())) {
-            throw new InvalidAlgorithmException(
-                sprintf(
-                    '%s is not a member of the RS family of JWA',
-                    $algorithm->getValue()
-                )
-            );
-        }
-
-        $this->algorithm = $algorithm;
-    }
-
     use JwaTrait;
+
+    public function __construct()
+    {
+        throw new NotImplementedException('This algorithm has not been implemented. This ' .
+            'library is still in an experimental state and should be used with caution in any ' .
+            'production environment');
+    }
 }

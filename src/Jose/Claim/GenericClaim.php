@@ -10,8 +10,17 @@ use IdentityLayer\Jose\Exception\InvalidArgumentException;
 class GenericClaim implements Claim
 {
     private string $key;
+
+    /**
+     * @var mixed
+     */
     private $value;
 
+    /**
+     * GenericClaim constructor.
+     * @param string $key
+     * @param mixed $value
+     */
     private function __construct(string $key, $value)
     {
         $jsonEncoded = json_encode($value);
@@ -33,7 +42,7 @@ class GenericClaim implements Claim
      */
     public static function fromKeyValue(string $key, $value): Claim
     {
-        return new static($key, $value);
+        return new GenericClaim($key, $value);
     }
 
     public function getKey(): string
@@ -46,7 +55,7 @@ class GenericClaim implements Claim
         return $this->value;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             $this->key => $this->value

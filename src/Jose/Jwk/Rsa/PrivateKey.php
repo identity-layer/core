@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace IdentityLayer\Jose\Jwk\Rsa;
 
 use FG\ASN1\ASNObject;
+use IdentityLayer\Jose\Exception\EncodingException;
 use IdentityLayer\Jose\JwaFamilyEnum;
 use IdentityLayer\Jose\JwaEnum;
 use IdentityLayer\Jose\Exception\InvalidAlgorithmException;
@@ -12,10 +13,14 @@ use IdentityLayer\Jose\Exception\InvalidArgumentException;
 use IdentityLayer\Jose\Exception\SigningException;
 use IdentityLayer\Jose\Jwk\SigningKey;
 use IdentityLayer\Jose\Jwk\VerificationKey;
+use IdentityLayer\Jose\Util\Json;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 
 final class PrivateKey implements SigningKey, VerificationKey
 {
+    /**
+     * @var resource
+     */
     private $keyResource;
     private string $modulus;
     private string $publicExponent;
@@ -64,16 +69,9 @@ final class PrivateKey implements SigningKey, VerificationKey
             'n' => Base64UrlSafe::encodeUnpadded($this->modulus),
         ];
 
-        $baseJsonEncoded = json_encode($base);
-
         return Base64UrlSafe::encodeUnpadded(
-            hash('sha256', $baseJsonEncoded, true)
+            hash('sha256', Json::encode($base), true)
         );
-    }
-
-    public function getVerificationKey(): VerificationKey
-    {
-        return PublicKey::fromPublicKeyPemEncoded();
     }
 
     public function sign(JwaEnum $algorithmName, string $message): string
@@ -91,17 +89,6 @@ final class PrivateKey implements SigningKey, VerificationKey
         if ($result === false || $signature === null) {
             throw new SigningException('An unexpected error occured while attempting to sign ' .
                 'message with private key.');
-        }
-
-        $asnObject = ASNObject::fromBinary($signature);
-
-        if (!$asnObject instanceof ASNObject) {
-            throw new SigningException('Could not generate signature');
-        }
-
-        $asnParts = $asnObject->getChildren();
-        foreach ($asnParts as $asnPart) {
-            var_dump($asnPart);
         }
 
         return $signature;

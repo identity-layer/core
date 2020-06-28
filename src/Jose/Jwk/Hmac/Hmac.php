@@ -40,7 +40,8 @@ final class Hmac implements SigningKey, VerificationKey
     {
         $this->validateAlgorithm($algorithm);
 
-        return hash_hmac($algorithm->hashingAlgorithm(), $message, $this->key, true);;
+        return hash_hmac($algorithm->hashingAlgorithm(), $message, $this->key, true);
+        ;
     }
 
     public function verify(JwaEnum $algorithm, string $message, string $signature): bool

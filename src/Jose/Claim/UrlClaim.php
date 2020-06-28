@@ -31,7 +31,7 @@ class UrlClaim implements Claim
      */
     public static function fromKeyValue(string $key, $value): Claim
     {
-        return new static($key, $value);
+        return new UrlClaim($key, $value);
     }
 
     public function getKey(): string
@@ -44,7 +44,7 @@ class UrlClaim implements Claim
         return (string) $this->value;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             $this->key => $this->value

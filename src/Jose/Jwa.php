@@ -11,7 +11,7 @@ interface Jwa
 {
     public function name(): JwaEnum;
 
-    public function sign(SigningKey $key, $message): string;
+    public function sign(SigningKey $key, string $message): string;
 
     public function verify(VerificationKey $key, string $message, string $signature): bool;
 }

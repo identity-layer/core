@@ -10,7 +10,7 @@ use JsonSerializable;
 
 class ClaimCollection extends ImmutableSet implements JsonSerializable
 {
-    public static function T(): string
+    public static function t(): string
     {
         return Claim::class;
     }
@@ -26,7 +26,7 @@ class ClaimCollection extends ImmutableSet implements JsonSerializable
         return ($item1->getKey() === $item2->getKey() && $item1->getValue() === $item2->getValue());
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->reduce(function ($carry, Claim $claim) {
             if ($carry === null) {

@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class UrlClaimTest extends TestCase
 {
-    public function testValidUrl()
+    public function testValidUrl(): void
     {
         $validUrl = 'https://example.com';
 
@@ -20,7 +20,7 @@ class UrlClaimTest extends TestCase
         $this->assertEquals(['profile' => $validUrl], $urlClaim->jsonSerialize());
     }
 
-    public function testInvalidUrl()
+    public function testInvalidUrl(): void
     {
         $this->expectException(InvalidArgumentException::class);
 

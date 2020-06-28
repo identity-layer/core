@@ -18,11 +18,15 @@ class TimestampClaim implements Claim
     {
         try {
             $dateTime = DateTimeImmutable::createFromFormat('U', (string) $timestamp);
+            if ($dateTime === false) {
+                throw new Exception();
+            }
         } catch (Exception $e) {
             throw new InvalidArgumentException(
                 sprintf('Invalid timestamp %d', $timestamp)
             );
         }
+
         $this->key = $key;
         $this->value = $dateTime;
     }
@@ -34,7 +38,7 @@ class TimestampClaim implements Claim
      */
     public static function fromKeyValue(string $key, $value): Claim
     {
-        return new static($key, $value);
+        return new TimestampClaim($key, $value);
     }
 
     public function getKey(): string
@@ -47,7 +51,7 @@ class TimestampClaim implements Claim
         return $this->value->getTimestamp();
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             $this->key => $this->value->getTimestamp()

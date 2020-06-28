@@ -18,7 +18,7 @@
         "ext-intl": "*",
         "ext-json": "^7.4",
         "ext-openssl": "^7.4",
-        "alvinchevolleaux/collection": "^0.1",
+        "alvinchevolleaux/collection": "^0",
         "fgrosse/phpasn1": "^2.1",
         "myclabs/php-enum": "^1.7",
         "paragonie/constant_time_encoding": "^2.3",
@@ -26,7 +26,8 @@
     },
     "require-dev": {
         "phpstan/phpstan": "^0.12.25",
-        "phpunit/phpunit": "^9.1"
+        "phpunit/phpunit": "^9.1",
+        "squizlabs/php_codesniffer": "^3.5"
     },
     "autoload": {
         "psr-4": {

@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class LocaleClaimTest extends TestCase
 {
-    public function testValidLocales()
+    public function testValidLocales(): void
     {
         $validLocales = [
             'en-GB',
@@ -34,7 +34,7 @@ class LocaleClaimTest extends TestCase
         }
     }
 
-    public function testInvalidLocale()
+    public function testInvalidLocale(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         LocaleClaim::fromKeyValue('test', 'not a locale');

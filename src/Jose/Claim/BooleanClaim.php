@@ -24,7 +24,7 @@ class BooleanClaim implements Claim
      */
     public static function fromKeyValue(string $key, $value): Claim
     {
-        return new static($key, $value);
+        return new BooleanClaim($key, $value);
     }
 
     public function getKey(): string
@@ -37,7 +37,7 @@ class BooleanClaim implements Claim
         return $this->value;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             $this->key => $this->value

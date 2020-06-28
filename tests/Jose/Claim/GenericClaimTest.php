@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class GenericClaimTest extends TestCase
 {
-    public function testGenericClaim()
+    public function testGenericClaim(): void
     {
         $validJsonValues = [
             'string',

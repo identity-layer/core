@@ -44,7 +44,7 @@ class Jws implements Jwt
         );
 
         $signature = Base64UrlSafe::encodeUnpadded(
-            $jwa->sign($key,"{$headerEncoded}.{$payloadEncoded}")
+            $jwa->sign($key, "{$headerEncoded}.{$payloadEncoded}")
         );
 
         return "{$headerEncoded}.{$payloadEncoded}.{$signature}";

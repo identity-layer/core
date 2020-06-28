@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class ZoneInfoClaimTest extends TestCase
 {
-    public function testValidZoneInfo()
+    public function testValidZoneInfo(): void
     {
         $validTimeZone = 'Europe/London';
 
@@ -20,7 +20,7 @@ class ZoneInfoClaimTest extends TestCase
         $this->assertEquals(['zoneinfo' => 'Europe/London'], $zoneInfoClaim->jsonSerialize());
     }
 
-    public function testInvalidZoneInfo()
+    public function testInvalidZoneInfo(): void
     {
         $this->expectException(InvalidArgumentException::class);
 

@@ -31,7 +31,7 @@ class EmailClaim implements Claim
      */
     public static function fromKeyValue(string $key, $value): Claim
     {
-        return new static($key, $value);
+        return new EmailClaim($key, $value);
     }
 
     public function getKey(): string
@@ -44,7 +44,7 @@ class EmailClaim implements Claim
         return $this->value;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             $this->key => $this->value

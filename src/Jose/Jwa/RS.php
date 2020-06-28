@@ -11,7 +11,7 @@ use IdentityLayer\Jose\JwaFamilyEnum;
 
 final class RS implements Jwa
 {
-    private JwaEnum $algorithm;
+    use JwaTrait;
 
     public function __construct(JwaEnum $algorithm)
     {
@@ -26,6 +26,4 @@ final class RS implements Jwa
 
         $this->algorithm = $algorithm;
     }
-
-    use JwaTrait;
 }

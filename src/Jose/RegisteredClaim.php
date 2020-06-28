@@ -27,7 +27,7 @@ class RegisteredClaim implements Claim
         }
 
         $registeredClaimType = new RegisteredClaimEnum($key);
-        return new static($registeredClaimType, $value);
+        return new RegisteredClaim($registeredClaimType, $value);
     }
 
     public function type(): RegisteredClaimEnum
@@ -45,7 +45,7 @@ class RegisteredClaim implements Claim
         return $this->claim->getValue();
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->claim->jsonSerialize();
     }

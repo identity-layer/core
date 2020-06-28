@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose\Jwk\Rsa;
 
+use IdentityLayer\Jose\Exception\EncodingException;
 use IdentityLayer\Jose\JwaFamilyEnum;
 use IdentityLayer\Jose\JwaEnum;
 use IdentityLayer\Jose\Exception\InvalidAlgorithmException;
 use IdentityLayer\Jose\Exception\InvalidArgumentException;
 use IdentityLayer\Jose\Jwk\JwkSerialisable;
 use IdentityLayer\Jose\Jwk\VerificationKey;
+use IdentityLayer\Jose\Util\Json;
 use ParagonIE\ConstantTime\Base64UrlSafe;
 
 final class PublicKey implements VerificationKey, JwkSerialisable
@@ -17,6 +19,7 @@ final class PublicKey implements VerificationKey, JwkSerialisable
     private const ASN1_SEQUENCE = 48;
     private const ASN1_INTEGER = 2;
 
+    /** @var resource  */
     private $keyResource;
     private string $publicExponent;
     private string $modulus;
@@ -55,16 +58,14 @@ final class PublicKey implements VerificationKey, JwkSerialisable
             'n' => Base64UrlSafe::encodeUnpadded($this->modulus),
         ];
 
-        $baseJsonEncoded = json_encode($base);
-
         return Base64UrlSafe::encodeUnpadded(
-            hash('sha256', $baseJsonEncoded, true)
+            hash('sha256', Json::encode($base), true)
         );
     }
 
     public function toJwkFormat(): string
     {
-        return json_encode([
+        return Json::encode([
             'kty' => 'RSA',
             'use' => 'sig',
             'kid' => $this->kid(),

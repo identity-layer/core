@@ -15,7 +15,21 @@ algorithms otherwise.
 The library keeps external dependencies to a minimum so works well in environments
 with complex dependency requirements.
 
-
+## Supported Algorithms
+| Algorithm | Supported |
+|-----------|-----------|
+| HS256     | ✔ |
+| HS384     | ✔ |
+| HS512     | ✔ |
+| RS256     | ✔ |
+| RS384     | ✔ |
+| RS512     | ✔ |
+| PS256     | ✖ |
+| PS384     | ✖ |
+| PS512     | ✖ |
+| ES256     | ✖ |
+| ES384     | ✖ |
+| ES512     | ✖ |
 
 
 
