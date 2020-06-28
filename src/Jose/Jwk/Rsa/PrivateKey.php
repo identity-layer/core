@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose\Jwk\Rsa;
 
-use FG\ASN1\ASNObject;
-use IdentityLayer\Jose\Exception\EncodingException;
-use IdentityLayer\Jose\JwaFamilyEnum;
-use IdentityLayer\Jose\JwaEnum;
 use IdentityLayer\Jose\Exception\InvalidAlgorithmException;
 use IdentityLayer\Jose\Exception\InvalidArgumentException;
 use IdentityLayer\Jose\Exception\SigningException;
+use IdentityLayer\Jose\JwaEnum;
+use IdentityLayer\Jose\JwaFamilyEnum;
 use IdentityLayer\Jose\Jwk\SigningKey;
 use IdentityLayer\Jose\Jwk\VerificationKey;
 use IdentityLayer\Jose\Util\Json;

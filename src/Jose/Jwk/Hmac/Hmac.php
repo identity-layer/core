@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose\Jwk\Hmac;
 
-use IdentityLayer\Jose\JwaFamilyEnum;
-use IdentityLayer\Jose\JwaEnum;
 use IdentityLayer\Jose\Exception\InvalidAlgorithmException;
 use IdentityLayer\Jose\Exception\InvalidArgumentException;
+use IdentityLayer\Jose\JwaEnum;
+use IdentityLayer\Jose\JwaFamilyEnum;
 use IdentityLayer\Jose\Jwk\SigningKey;
 use IdentityLayer\Jose\Jwk\VerificationKey;
-use ParagonIE\ConstantTime\Base64UrlSafe;
 
 final class Hmac implements SigningKey, VerificationKey
 {
