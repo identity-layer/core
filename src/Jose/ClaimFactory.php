@@ -63,7 +63,6 @@ class ClaimFactory
             case RegisteredClaimEnum::ISSUED_AT:
             case RegisteredClaimEnum::NOT_BEFORE:
             case RegisteredClaimEnum::EXPIRATION_TIME:
-            case RegisteredClaimEnum::AUTH_TIME:
                 return TimestampClaim::fromKeyValue($key, $value);
             case RegisteredClaimEnum::EMAIL_VERIFIED:
             case RegisteredClaimEnum::PHONE_NUMBER_VERIFIED:

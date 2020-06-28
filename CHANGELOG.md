@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 1.1.3 - 2020-06-29
+### Info
+Add missing registered claims. Gender was added for purposes
+
 ## 1.1.2 - 2020-06-29
 ### Info
 Update composer dependencies to use the tilde version range
