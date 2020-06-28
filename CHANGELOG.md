@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 1.1.2 - 2020-06-29
+### Info
+Update composer dependencies to use the tilde version range
+
 ## 1.1.1 - 2020-06-29
 ### Info
 Remove unused use statements in code
