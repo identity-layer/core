@@ -96,7 +96,7 @@ final class PrivateKey implements SigningKey, VerificationKey
 
     public function verify(JwaEnum $algorithmName, string $message, string $signature): bool
     {
-        return $this->sign($algorithmName, $message) === $signature;
+        return hash_equals($this->sign($algorithmName, $message), $signature);
     }
 
     public function validateAlgorithm(JwaEnum $algorithm): void

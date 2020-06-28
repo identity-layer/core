@@ -10,6 +10,7 @@ use IdentityLayer\Jose\Exception\InvalidAlgorithmException;
 use IdentityLayer\Jose\Exception\InvalidArgumentException;
 use IdentityLayer\Jose\Jwk\SigningKey;
 use IdentityLayer\Jose\Jwk\VerificationKey;
+use ParagonIE\ConstantTime\Base64UrlSafe;
 
 final class Hmac implements SigningKey, VerificationKey
 {
@@ -41,12 +42,11 @@ final class Hmac implements SigningKey, VerificationKey
         $this->validateAlgorithm($algorithm);
 
         return hash_hmac($algorithm->hashingAlgorithm(), $message, $this->key, true);
-        ;
     }
 
     public function verify(JwaEnum $algorithm, string $message, string $signature): bool
     {
-        return $this->verify($algorithm, $message, $signature);
+        return hash_equals($this->sign($algorithm, $message), $signature);
     }
 
     private function validateAlgorithm(JwaEnum $algorithm): void

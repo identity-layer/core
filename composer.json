@@ -38,5 +38,11 @@
         "psr-4": {
             "IdentityLayer\\Tests\\Jose\\": "tests/Jose"
         }
+    },
+    "scripts": {
+        "phpcs": "./vendor/bin/phpcs --standard=ruleset.xml",
+        "phpstan": "./vendor/bin/phpstan analyse",
+        "phpunit": "./vendor/bin/phpunit",
+        "test": ["@phpcs", "@phpstan", "@phpunit"]
     }
 }
