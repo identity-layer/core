@@ -6,5 +6,5 @@ namespace IdentityLayer\Jose\Jwk;
 
 interface JwkSerialisable
 {
-    public function toJwkFormat(): string;
+    public function toJwkFormat(): array;
 }

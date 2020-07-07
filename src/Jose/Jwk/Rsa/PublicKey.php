@@ -62,15 +62,15 @@ final class PublicKey implements VerificationKey, JwkSerialisable
         );
     }
 
-    public function toJwkFormat(): string
+    public function toJwkFormat(): array
     {
-        return Json::encode([
+        return [
             'kty' => 'RSA',
             'use' => 'sig',
             'kid' => $this->kid(),
             'n' => Base64UrlSafe::encodeUnpadded($this->modulus),
             'e' => Base64UrlSafe::encodeUnpadded($this->publicExponent),
-        ]);
+        ];
     }
 
     private static function lengthEncodedToUnsignedLong(int $length): string

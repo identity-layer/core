@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## 2.0.0 - 2020-07-07
+### Info
+Change JWK Serialisation so it returns an array with values instead of a string
+Update CircleCI build to test against lowest possible dependencies
+
 ## 1.1.3 - 2020-06-29
 ### Info
 Add missing registered claims. Gender was added for purposes
