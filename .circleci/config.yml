@@ -23,7 +23,9 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: composer install -n --prefer-dist --prefer-lowest
+      - run: composer install -n --prefer-dist
+
+      - run: composer update --prefer-lowest # Prefer lowest possible dependencies so any incompatibilities are noticed before release / merge
 
       - save_cache:
           key: v1-dependencies-{{ checksum "composer.json" }}

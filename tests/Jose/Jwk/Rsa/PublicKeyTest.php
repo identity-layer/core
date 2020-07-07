@@ -37,6 +37,6 @@ class PublicKeyTest extends TestCase
 
         $publicKey = PublicKey::fromJwkData($jwkData);
 
-        $this->assertEquals($jwkData, json_decode($publicKey->toJwkFormat(), true));
+        $this->assertEquals($jwkData, $publicKey->toJwkFormat());
     }
 }
