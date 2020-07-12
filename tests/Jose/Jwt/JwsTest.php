@@ -8,6 +8,7 @@ use IdentityLayer\Jose\JwaEnum;
 use IdentityLayer\Jose\ClaimFactory;
 use IdentityLayer\Jose\Jwa\RS;
 use IdentityLayer\Jose\Jwk\Rsa\PrivateKey;
+use IdentityLayer\Jose\Jwk\Rsa\PublicKey;
 use IdentityLayer\Jose\Jwt\Jws;
 use PHPUnit\Framework\TestCase;
 
@@ -39,11 +40,29 @@ class JwsTest extends TestCase
 
         $expectedToken = file_get_contents(__DIR__ . '/token');
 
-        $this->assertEquals($expectedToken, Jws::toCompactSerialisedFormat(
-            $privateKey,
+        $jws = new Jws($claims, $header);
+
+        $this->assertEquals($expectedToken, $jws->toCompactSerialisedFormat(
             $rs256,
-            $claims,
-            $header
+            $privateKey
         ));
+    }
+
+    public function testFromCompactSerialisedFormat(): void
+    {
+        $token = file_get_contents(__DIR__ . '/token');
+
+        $signingToken = PublicKey::fromPublicKeyPemEncoded(
+            file_get_contents(__DIR__ . '/public.key')
+        );
+
+        $jws = Jws::fromCompactSerialisedFormat($signingToken, $token);
+
+        $this->assertEquals([
+            'sub' => '1234567890',
+            'name' => 'John Doe',
+            'admin' => true,
+            'iat' => 1516239022,
+        ], $jws->getClaims()->jsonSerialize());
     }
 }
