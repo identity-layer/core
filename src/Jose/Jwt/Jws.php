@@ -44,11 +44,13 @@ class Jws implements Jwt
 
         $jwaEnum = new JwaEnum($header['alg']);
 
-        if (!$key->verify(
-            $jwaEnum,
-            "$jwtParts[0].$jwtParts[1]",
-            Base64UrlSafe::decode($jwtParts[2])
-        )) {
+        if (
+            !$key->verify(
+                $jwaEnum,
+                "$jwtParts[0].$jwtParts[1]",
+                Base64UrlSafe::decode($jwtParts[2])
+            )
+        ) {
             throw new InvalidSignatureException(
                 'JWT does not have a valid signature according to the provided JWS'
             );
@@ -66,10 +68,6 @@ class Jws implements Jwt
         ]);
 
         $headerJson = Json::encode($header);
-
-        if ($headerJson === false) {
-            throw new JwaException('Could not JSON encode the token header data.');
-        }
 
         $headerEncoded = Base64UrlSafe::encodeUnpadded($headerJson);
 
@@ -102,41 +100,4 @@ class Jws implements Jwt
     {
         return $this->header;
     }
-
-//    public static function toCompactSerialisedFormat(
-//        SigningKey $key,
-//        Jwa $jwa,
-//        ClaimCollection $claims,
-//        array $header = null
-//    ): string {
-//        $header = $header ?? [
-//            'alg' => $jwa->name()->getValue(),
-//            'kid' => $key->kid(),
-//            'typ' => 'JWT',
-//        ];
-//
-//        $headerJson = json_encode($header);
-//
-//        if ($headerJson === false) {
-//            throw new JwaException('Could not JSON encode the token header data.');
-//        }
-//
-//        $headerEncoded = Base64UrlSafe::encodeUnpadded($headerJson);
-//
-//        $claimsJson = json_encode($claims);
-//
-//        if ($claimsJson === false) {
-//            throw new JwaException('Could not JSON encode the set of claims provided.');
-//        }
-//
-//        $payloadEncoded = Base64UrlSafe::encodeUnpadded(
-//            $claimsJson
-//        );
-//
-//        $signature = Base64UrlSafe::encodeUnpadded(
-//            $jwa->sign($key, "{$headerEncoded}.{$payloadEncoded}")
-//        );
-//
-//        return "{$headerEncoded}.{$payloadEncoded}.{$signature}";
-//    }
 }

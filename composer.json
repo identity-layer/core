@@ -41,6 +41,7 @@
     },
     "scripts": {
         "phpcs": "./vendor/bin/phpcs --standard=ruleset.xml",
+        "phpcs-fix": "./vendor/bin/phpcbf --standard=ruleset.xml",
         "phpstan": "./vendor/bin/phpstan analyse",
         "phpunit": "./vendor/bin/phpunit",
         "test": ["@phpcs", "@phpstan", "@phpunit"]
