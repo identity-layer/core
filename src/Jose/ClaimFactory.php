@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose;
 
-use AlvinChevolleaux\Collection\Collection;
+use IdentityLayer\Collection\Collection;
 use IdentityLayer\Jose\Claim\BooleanClaim;
 use IdentityLayer\Jose\Claim\EmailClaim;
 use IdentityLayer\Jose\Claim\GenericClaim;

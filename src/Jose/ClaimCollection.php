@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace IdentityLayer\Jose;
 
-use AlvinChevolleaux\Collection\Exception\InvalidTypeException;
-use AlvinChevolleaux\Collection\ImmutableSet;
+use IdentityLayer\Collection\Exception\InvalidTypeException;
+use IdentityLayer\Collection\ImmutableSet;
 use JsonSerializable;
 
 class ClaimCollection extends ImmutableSet implements JsonSerializable

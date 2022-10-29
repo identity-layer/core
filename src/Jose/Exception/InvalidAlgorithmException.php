@@ -8,5 +8,4 @@ use RuntimeException;
 
 class InvalidAlgorithmException extends RuntimeException
 {
-
 }

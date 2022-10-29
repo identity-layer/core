@@ -6,5 +6,4 @@ namespace IdentityLayer\Jose\Exception;
 
 class NoneAlgorithmIllegalOperationException extends JwaException
 {
-
 }
