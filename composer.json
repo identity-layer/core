@@ -10,7 +10,10 @@
         }
     ],
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "preferred-install": {
+            "*": "dist"
+        }
     },
     "minimum-stability": "stable",
     "require": {
@@ -18,8 +21,8 @@
         "ext-intl": "*",
         "ext-json": "*",
         "ext-openssl": "*",
-        "alvinchevolleaux/collection": "~0.2",
         "fgrosse/phpasn1": "~2.0",
+        "identity-layer/collection": "^1.0",
         "myclabs/php-enum": "~1.5",
         "paragonie/constant_time_encoding": "~2.2",
         "symfony/polyfill-mbstring": "~1.0"
