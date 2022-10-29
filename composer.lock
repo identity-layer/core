@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a79b82f3757113706d045a95f2bdccb",
+    "content-hash": "c4e2480367e2af308baa5d1d00492756",
     "packages": [
         {
             "name": "fgrosse/phpasn1",
@@ -83,16 +83,16 @@
         },
         {
             "name": "identity-layer/collection",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/identity-layer/collection.git",
-                "reference": "c1f18684ad59130625c81c4b0be6b059a1883855"
+                "reference": "ba3e78ef5b8bd45c5f690e196c3f71ac0f63539d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/identity-layer/collection/zipball/c1f18684ad59130625c81c4b0be6b059a1883855",
-                "reference": "c1f18684ad59130625c81c4b0be6b059a1883855",
+                "url": "https://api.github.com/repos/identity-layer/collection/zipball/ba3e78ef5b8bd45c5f690e196c3f71ac0f63539d",
+                "reference": "ba3e78ef5b8bd45c5f690e196c3f71ac0f63539d",
                 "shasum": ""
             },
             "require": {
@@ -122,9 +122,9 @@
             "description": "Generic collection library",
             "support": {
                 "issues": "https://github.com/identity-layer/collection/issues",
-                "source": "https://github.com/identity-layer/collection/tree/1.0.2"
+                "source": "https://github.com/identity-layer/collection/tree/1.0.3"
             },
-            "time": "2022-10-29T10:22:53+00:00"
+            "time": "2022-10-29T10:39:32+00:00"
         },
         {
             "name": "myclabs/php-enum",
